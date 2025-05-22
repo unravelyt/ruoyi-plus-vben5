@@ -7,9 +7,9 @@ dist.tar
 dist.war
 .nitro
 .output
-*-dist.zip
-*-dist.tar
-*-dist.war
+*dist.zip
+*dist.tar
+*dist.war
 coverage
 *.local
 **/.vitepress/cache
