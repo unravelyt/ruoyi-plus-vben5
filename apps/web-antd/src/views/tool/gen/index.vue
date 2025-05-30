@@ -110,7 +110,7 @@ function handlePreview(record: Recordable<any>) {
 
 const router = useRouter();
 function handleEdit(record: Recordable<any>) {
-  router.push(`/code-gen/edit/${record.tableId}`);
+  router.push(`/tool/gen-edit/index/${record.tableId}`);
 }
 
 async function handleSync(record: Recordable<any>) {

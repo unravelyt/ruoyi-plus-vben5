@@ -142,7 +142,7 @@ function handleAuthEdit(record: Role) {
 
 const router = useRouter();
 function handleAssignRole(record: Role) {
-  router.push(`/system/role-assign/${record.roleId}`);
+  router.push(`/system/role-auth/user/${record.roleId}`);
 }
 </script>
 

@@ -37,7 +37,7 @@ export function ossConfigRemove(ossConfigIds: IDS) {
 
 // 更改OSS配置的状态
 export function ossConfigChangeStatus(data: any) {
-  const requestData = {
+  const requestData: Partial<OssConfig> = {
     ossConfigId: data.ossConfigId,
     status: data.status,
     configKey: data.configKey,

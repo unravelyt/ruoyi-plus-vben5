@@ -8,6 +8,8 @@ import { App, ConfigProvider, theme } from 'ant-design-vue';
 
 import { antdLocale } from '#/locales';
 
+import { useUploadTip } from './upload-tip';
+
 defineOptions({ name: 'App' });
 
 const { isDark } = usePreferences();
@@ -28,6 +30,8 @@ const tokenTheme = computed(() => {
     token: tokens,
   };
 });
+
+useUploadTip();
 </script>
 
 <template>

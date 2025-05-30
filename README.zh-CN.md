@@ -6,7 +6,7 @@
 
 v5版本采用分仓(包)目录结构, 具体开发路径为: `根目录/apps/web-antd`
 
-目前对应后端版本: **分布式5.3.1/微服务2.3.0**
+目前对应后端版本: **分布式5.4.0/微服务2.4.0**
 
 V1.1.0版本已支持离线图标
 
@@ -18,7 +18,7 @@ V1.2.0版本对接warmflow工作流
 
 | 组件/框架      | 版本   |
 | :------------- | :----- |
-| vben           | 5.5.4  |
+| vben           | 5.5.6  |
 | ant-design-vue | 4.2.6  |
 | vue            | 3.5.13 |
 
@@ -45,14 +45,6 @@ admin 账号: admin admin123
 [Vben V5 文档地址](https://doc.vben.pro/)
 
 [RuoYi-Plus 文档地址](https://plus-doc.dromara.org/#/)
-
-## 关于表单
-
-如果你觉得`useVbenForm`难度很大, 完全可以**使用原生antd表单**进行开发, 不一定非得用`useVbenForm`进行开发
-
-`apps/web-antd/src/views/system/notice/notice-modal.vue`即`通知公告modal`使用**原生antd form**进行(反向🤔)重构, 不想用`useVbenForm`可参考该页面进行表单开发
-
-复杂表单(如各种联动, 需要自定义样式布局, 需要自定义组件)**优先使用原生表单**(反正说了也没人听听😅)
 
 ## 预览图
 

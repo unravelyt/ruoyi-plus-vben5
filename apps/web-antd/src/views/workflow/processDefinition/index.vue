@@ -154,7 +154,7 @@ const router = useRouter();
  */
 function handleDesign(row: any, disabled: boolean) {
   router.push({
-    path: '/workflow/designer',
+    path: '/workflow/design/index',
     query: { definitionId: row.id, disabled: String(disabled) },
   });
 }

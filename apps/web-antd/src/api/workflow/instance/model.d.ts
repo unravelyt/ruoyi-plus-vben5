@@ -36,6 +36,6 @@ export interface Flow {
 }
 
 export interface FlowInfoResponse {
-  image: string;
+  instanceId: string;
   list: Flow[];
 }

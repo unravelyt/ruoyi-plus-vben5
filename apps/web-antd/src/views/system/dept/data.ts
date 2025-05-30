@@ -30,7 +30,6 @@ export const columns: VxeGridProps['columns'] = [
     field: 'deptName',
     title: '部门名称',
     treeNode: true,
-    width: 200,
   },
   {
     field: 'deptCategory',
@@ -39,13 +38,9 @@ export const columns: VxeGridProps['columns'] = [
   {
     field: 'orderNum',
     title: '排序',
-    resizable: false,
-    width: 'auto',
   },
   {
     field: 'status',
-    resizable: false,
-    width: 'auto',
     title: '状态',
     slots: {
       default: ({ row }) => {
@@ -62,7 +57,8 @@ export const columns: VxeGridProps['columns'] = [
     fixed: 'right',
     slots: { default: 'action' },
     title: '操作',
-    width: 200,
+    resizable: false,
+    width: 'auto',
   },
 ];
 

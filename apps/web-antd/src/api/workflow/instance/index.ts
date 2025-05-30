@@ -94,7 +94,7 @@ export function pageByCurrent(params?: PageQuery) {
  */
 export function flowInfo(businessId: string) {
   return requestClient.get<FlowInfoResponse>(
-    `/workflow/instance/flowImage/${businessId}`,
+    `/workflow/instance/flowHisTaskList/${businessId}`,
   );
 }
 

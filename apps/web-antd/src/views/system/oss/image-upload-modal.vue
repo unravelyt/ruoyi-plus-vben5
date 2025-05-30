@@ -31,7 +31,7 @@ const [BasicModal, modalApi] = useVbenModal({
     title="图片上传"
   >
     <div class="flex flex-col gap-4">
-      <ImageUpload v-model:value="fileList" />
+      <ImageUpload v-model:value="fileList" :max-count="3" />
     </div>
   </BasicModal>
 </template>

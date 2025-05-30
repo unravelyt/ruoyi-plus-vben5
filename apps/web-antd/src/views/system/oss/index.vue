@@ -33,7 +33,9 @@ import { ossDownload, ossList, ossRemove } from '#/api/system/oss';
 import { calculateFileSize } from '#/utils/file';
 import { downloadByData } from '#/utils/file/download';
 
-import { columns, fallbackImageBase64, querySchema } from './data';
+import { supportImageList } from './constant';
+import { columns, querySchema } from './data';
+import fallbackImageBase64 from './fallback-image.txt?raw';
 import fileUploadModal from './file-upload-modal.vue';
 import imageUploadModal from './image-upload-modal.vue';
 
@@ -154,7 +156,7 @@ function handleMultiDelete() {
 
 const router = useRouter();
 function handleToSettings() {
-  router.push('/system/oss-config');
+  router.push('/system/oss-config/index');
 }
 
 const preview = ref(false);
@@ -163,10 +165,32 @@ onMounted(async () => {
   preview.value = previewStr === 'true';
 });
 
+/**
+ * 根据拓展名判断是否是图片
+ * @param ext 拓展名
+ */
 function isImageFile(ext: string) {
-  const supportList = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-  return supportList.some((item) => ext.toLocaleLowerCase().includes(item));
+  return supportImageList.some((item) =>
+    ext.toLocaleLowerCase().includes(item),
+  );
 }
+
+/**
+ * 判断是否是pdf文件
+ * @param ext 扩展名
+ */
+function isPdfFile(ext: string) {
+  return ext.toLocaleLowerCase().includes('pdf');
+}
+
+/**
+ * pdf预览 使用浏览器接管
+ * @param url 文件地址
+ */
+function pdfPreview(url: string) {
+  window.open(url);
+}
+
 const [ImageUploadModal, imageUploadApi] = useVbenModal({
   connectedComponent: imageUploadModal,
 });
@@ -230,6 +254,12 @@ const [FileUploadModal, fileUploadApi] = useVbenModal({
             </div>
           </template>
         </Image>
+        <!-- pdf预览 使用浏览器开新窗口 -->
+        <span
+          v-else-if="preview && isPdfFile(row.url)"
+          class="icon-[vscode-icons--file-type-pdf2] size-10 cursor-pointer"
+          @click.stop="pdfPreview(row.url)"
+        ></span>
         <span v-else>{{ row.url }}</span>
       </template>
       <template #action="{ row }">

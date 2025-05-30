@@ -81,3 +81,12 @@ export function tenantPackageMenuTreeSelect(packageId: ID) {
     `${Api.tenantPackageMenuTreeselect}/${packageId}`,
   );
 }
+
+/**
+ * 批量删除菜单
+ * @param menuIds 菜单ids
+ * @returns void
+ */
+export function menuCascadeRemove(menuIds: IDS) {
+  return requestClient.deleteWithMsg<void>(`${Api.root}/cascade/${menuIds}`);
+}

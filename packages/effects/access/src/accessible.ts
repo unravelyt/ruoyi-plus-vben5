@@ -104,6 +104,15 @@ async function generateRoutes(
       );
       break;
     }
+    case 'mixed': {
+      const [frontend_resultRoutes, backend_resultRoutes] = await Promise.all([
+        generateRoutesByFrontend(routes, roles || [], forbiddenComponent),
+        generateRoutesByBackend(options),
+      ]);
+
+      resultRoutes = [...frontend_resultRoutes, ...backend_resultRoutes];
+      break;
+    }
   }
 
   /**

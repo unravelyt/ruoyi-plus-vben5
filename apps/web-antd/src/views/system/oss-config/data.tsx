@@ -28,7 +28,10 @@ export const querySchema: FormSchemaGetter = () => [
   {
     component: 'Select',
     componentProps: {
-      options: getDictOptions(DictEnum.SYS_YES_NO),
+      options: [
+        { label: '是', value: '0' },
+        { label: '否', value: '1' },
+      ],
     },
     fieldName: 'status',
     label: '是否默认',

@@ -131,6 +131,8 @@ const { hasAccessByCodes } = useAccess();
           v-model:value="row.status"
           :api="() => ossConfigChangeStatus(row)"
           :disabled="!hasAccessByCodes(['system:ossConfig:edit'])"
+          checked-text="是"
+          un-checked-text="否"
           @reload="tableApi.query()"
         />
       </template>

@@ -31,7 +31,11 @@ const [BasicModal, modalApi] = useVbenModal({
     title="文件上传"
   >
     <div class="flex flex-col gap-4">
-      <FileUpload v-model:value="fileList" :enable-drag-upload="true" />
+      <FileUpload
+        v-model:value="fileList"
+        :enable-drag-upload="true"
+        :max-count="3"
+      />
     </div>
   </BasicModal>
 </template>
