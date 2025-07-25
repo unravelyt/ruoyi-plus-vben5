@@ -9,6 +9,7 @@ import type { BaseFormComponentType } from '@vben/common-ui';
 import type { Recordable } from '@vben/types';
 
 import {
+  computed,
   defineAsyncComponent,
   defineComponent,
   getCurrentInstance,
@@ -39,6 +40,9 @@ const AutoComplete = defineAsyncComponent(
   () => import('ant-design-vue/es/auto-complete'),
 );
 const Button = defineAsyncComponent(() => import('ant-design-vue/es/button'));
+const Cascader = defineAsyncComponent(
+  () => import('ant-design-vue/es/cascader'),
+);
 const Checkbox = defineAsyncComponent(
   () => import('ant-design-vue/es/checkbox'),
 );
@@ -90,10 +94,13 @@ const withDefaultPlaceholder = <T extends Component>(
     name: component.name,
     inheritAttrs: false,
     setup: (props: any, { attrs, expose, slots }) => {
-      const placeholder =
-        props?.placeholder ||
-        attrs?.placeholder ||
-        $t(`ui.placeholder.${type}`);
+      // 改为placeholder 解决在keepalive & 语言切换 & tab切换 显示不变的问题
+      const computedPlaceholder = computed(
+        () =>
+          props?.placeholder ||
+          attrs?.placeholder ||
+          $t(`ui.placeholder.${type}`),
+      );
 
       // 透传组件暴露的方法
       const innerRef = ref();
@@ -112,7 +119,7 @@ const withDefaultPlaceholder = <T extends Component>(
           component,
           {
             ...componentProps,
-            placeholder,
+            placeholder: computedPlaceholder.value,
             ...props,
             ...attrs,
             ref: innerRef,
@@ -128,6 +135,7 @@ export type ComponentType =
   | 'ApiSelect'
   | 'ApiTreeSelect'
   | 'AutoComplete'
+  | 'Cascader'
   | 'Checkbox'
   | 'CheckboxGroup'
   | 'DatePicker'
@@ -191,6 +199,7 @@ async function initComponentAdapter() {
       },
     ),
     AutoComplete,
+    Cascader: withDefaultPlaceholder(Cascader, 'select'),
     Checkbox,
     CheckboxGroup,
     DatePicker,

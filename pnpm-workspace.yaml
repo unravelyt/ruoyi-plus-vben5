@@ -116,7 +116,7 @@ catalog:
   json-bigint: ^1.0.0
   jsonc-eslint-parser: ^2.4.0
   jsonwebtoken: ^9.0.2
-  lefthook: ^1.11.12
+  lefthook: 1.11.12
   lodash.clonedeep: ^4.5.0
   lodash.get: ^4.4.2
   lodash.isequal: ^4.5.0
@@ -187,7 +187,7 @@ catalog:
   vue-tippy: ^6.7.0
   vue-tsc: 2.2.10
   vxe-pc-ui: ^4.5.35
-  vxe-table: ^4.13.16
+  vxe-table: 4.13.16
   watermark-js-plus: ^1.6.0
   zod: ^3.24.3
   zod-defaults: ^0.1.3

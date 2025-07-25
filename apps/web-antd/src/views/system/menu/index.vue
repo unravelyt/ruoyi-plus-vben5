@@ -17,7 +17,6 @@ import { useVbenVxeGrid } from '#/adapter/vxe-table';
 import { menuCascadeRemove, menuList, menuRemove } from '#/api/system/menu';
 
 import { columns, querySchema } from './data';
-import { preserveTreeTableState } from './helper';
 import menuDrawer from './menu-drawer.vue';
 
 /**
@@ -69,6 +68,8 @@ const gridOptions: VxeGridProps = {
     rowField: 'menuId',
     // 自动转换为tree 由vxe处理 无需手动转换
     transform: true,
+    // 刷新接口后 记录展开行的情况
+    reserve: true,
   },
   id: 'system-menu-index',
 };
@@ -118,17 +119,15 @@ async function handleEdit(record: Menu) {
  */
 const cascadingDeletion = ref(false);
 async function handleDelete(row: Menu) {
-  await preserveTreeTableState(tableApi, async () => {
-    if (cascadingDeletion.value) {
-      // 级联删除
-      const menuAndChildren: Menu[] = treeToList([row], { id: 'menuId' });
-      await menuCascadeRemove(menuAndChildren.map((item) => item.menuId));
-    } else {
-      // 单删除
-      await menuRemove([row.menuId]);
-    }
-    await tableApi.query();
-  });
+  if (cascadingDeletion.value) {
+    // 级联删除
+    const menuAndChildren: Menu[] = treeToList([row], { id: 'menuId' });
+    await menuCascadeRemove(menuAndChildren.map((item) => item.menuId));
+  } else {
+    // 单删除
+    await menuRemove([row.menuId]);
+  }
+  await tableApi.query();
 }
 
 function removeConfirmTitle(row: Menu) {
@@ -147,7 +146,7 @@ function removeConfirmTitle(row: Menu) {
  * 编辑/添加成功后刷新表格
  */
 async function afterEditOrAdd() {
-  await preserveTreeTableState(tableApi, () => tableApi.query());
+  tableApi.query();
 }
 
 /**

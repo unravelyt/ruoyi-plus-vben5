@@ -2,13 +2,9 @@ import type { Recordable } from '@vben/types';
 
 import type { VxeGridProps } from '#/adapter/vxe-table';
 
-import { reactive } from 'vue';
-
 import { getPopupContainer } from '@vben/utils';
 
 import { Checkbox, Input, Select } from 'ant-design-vue';
-
-import { dictOptionSelectList } from '#/api/system/dict/dict-type';
 
 const JavaTypes: string[] = [
   'Long',
@@ -45,24 +41,6 @@ const componentsOptions = [
   { label: '富文本', value: 'editor' },
 ];
 
-const dictOptions = reactive<{ label: string; value: string }[]>([
-  { label: '未设置', value: '' },
-]);
-/**
- * 在这里初始化字典下拉框
- */
-(async function init() {
-  const ret = await dictOptionSelectList();
-
-  ret.forEach((dict) => {
-    const option = {
-      label: `${dict.dictName} | ${dict.dictType}`,
-      value: dict.dictType,
-    };
-    dictOptions.push(option);
-  });
-})();
-
 function renderBooleanTag(row: Recordable<any>, field: string) {
   const value = row[field] ? '是' : '否';
   const className = row[field] ? 'text-green-500' : 'text-red-500';
@@ -78,7 +56,10 @@ export const validRules: VxeGridProps['editRules'] = {
   javaField: [{ required: true, message: '请输入' }],
 };
 
-export const vxeTableColumns: VxeGridProps['columns'] = [
+// 内部依赖的字典从外部通过函数传入
+export const vxeTableColumns: (
+  dictOptions: { label: string; value: string }[],
+) => VxeGridProps['columns'] = (dictOptions) => [
   {
     title: '序号',
     type: 'seq',

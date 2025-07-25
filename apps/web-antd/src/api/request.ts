@@ -39,6 +39,11 @@ const { apiURL, clientId, enableEncrypt } = useAppConfig(
  */
 let isLogoutProcessing = false;
 
+/**
+ * 定义一个401专用异常 用于可能会用到的区分场景?
+ */
+export class UnauthorizedException extends Error {}
+
 function createRequestClient(baseURL: string) {
   const client = new RequestClient({
     // 后端地址
@@ -228,7 +233,7 @@ function createRequestClient(baseURL: string) {
         case 401: {
           // 已经在登出过程中 不再执行
           if (isLogoutProcessing) {
-            throw new Error(timeoutMsg);
+            throw new UnauthorizedException(timeoutMsg);
           }
           isLogoutProcessing = true;
           const _msg = $t('http.loginTimeout');
@@ -238,7 +243,7 @@ function createRequestClient(baseURL: string) {
             isLogoutProcessing = false;
           });
           // 不再执行下面逻辑
-          throw new Error(_msg);
+          throw new UnauthorizedException(_msg);
         }
         default: {
           if (msg) {

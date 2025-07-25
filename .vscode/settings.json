@@ -235,12 +235,14 @@
   "cSpell.words": [
     "archiver",
     "axios",
+    "Cascader",
     "dotenv",
     "isequal",
     "jspm",
     "napi",
     "nolebase",
     "rollup",
+    "tinymce",
     "vitest"
   ]
 }

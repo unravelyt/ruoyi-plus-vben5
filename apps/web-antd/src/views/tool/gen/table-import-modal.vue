@@ -86,11 +86,13 @@ const gridOptions: VxeGridProps = {
     },
   },
   rowConfig: {
-    keyField: 'tableId',
+    keyField: 'tableName',
   },
   toolbarConfig: {
     enabled: false,
   },
+  id: 'import-table-modal',
+  cellClassName: 'cursor-pointer',
 };
 
 const [BasicTable, tableApi] = useVbenVxeGrid({ formOptions, gridOptions });

@@ -27,7 +27,7 @@ const NotFoundComponent = () => import('#/views/_core/fallback/not-found.vue');
  * 在这里定义映射
  */
 const routeMetaMapping: Record<string, Omit<RouteMeta, 'title'>> = {
-  '/system/role-auth/user/:roleId(\\d+)': {
+  '/system/role-auth/user/:roleId': {
     activePath: '/system/role',
     requireHomeRedirect: true,
   },
@@ -37,7 +37,7 @@ const routeMetaMapping: Record<string, Omit<RouteMeta, 'title'>> = {
     requireHomeRedirect: true,
   },
 
-  '/tool/gen-edit/index/:tableId(\\d+)': {
+  '/tool/gen-edit/index/:tableId': {
     activePath: '/tool/gen',
     requireHomeRedirect: true,
   },

@@ -238,6 +238,7 @@ export const drawerSchema: FormSchemaGetter = () => [
         if (model.isFrame !== '0') {
           return z
             .string({ message: '请输入路由地址' })
+            .min(1, '请输入路由地址')
             .refine((val) => !val.startsWith('/'), {
               message: '路由地址不需要带/',
             });

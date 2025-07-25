@@ -11,14 +11,7 @@ import { useAccess } from '@vben/access';
 import { Page, useVbenDrawer, useVbenModal } from '@vben/common-ui';
 import { getVxePopupContainer } from '@vben/utils';
 
-import {
-  Dropdown,
-  Menu,
-  MenuItem,
-  Modal,
-  Popconfirm,
-  Space,
-} from 'ant-design-vue';
+import { Modal, Popconfirm, Space } from 'ant-design-vue';
 
 import { useVbenVxeGrid, vxeCheckboxChecked } from '#/adapter/vxe-table';
 import {
@@ -200,6 +193,18 @@ function handleAssignRole(record: Role) {
             >
               {{ $t('pages.common.edit') }}
             </ghost-button>
+            <ghost-button
+              v-access:code="['system:role:edit']"
+              @click.stop="handleAuthEdit(row)"
+            >
+              权限
+            </ghost-button>
+            <ghost-button
+              v-access:code="['system:role:edit']"
+              @click.stop="handleAssignRole(row)"
+            >
+              分配
+            </ghost-button>
             <Popconfirm
               :get-popup-container="getVxePopupContainer"
               placement="left"
@@ -215,25 +220,6 @@ function handleAssignRole(record: Role) {
               </ghost-button>
             </Popconfirm>
           </Space>
-          <Dropdown placement="bottomRight">
-            <template #overlay>
-              <Menu>
-                <MenuItem key="1" @click="handleAuthEdit(row)">
-                  数据权限
-                </MenuItem>
-                <MenuItem key="2" @click="handleAssignRole(row)">
-                  分配用户
-                </MenuItem>
-              </Menu>
-            </template>
-            <a-button
-              size="small"
-              type="link"
-              v-access:code="'system:role:edit'"
-            >
-              {{ $t('pages.common.more') }}
-            </a-button>
-          </Dropdown>
         </template>
       </template>
     </BasicTable>

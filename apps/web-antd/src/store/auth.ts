@@ -118,6 +118,7 @@ export const useAuthStore = defineStore('auth', () => {
       roles,
       userId: user.userId,
       username: user.userName,
+      email: user.email ?? '',
     };
     userStore.setUserInfo(userInfo);
     /**

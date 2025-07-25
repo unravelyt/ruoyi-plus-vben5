@@ -4,9 +4,10 @@ import type { Ref } from 'vue';
 import type { VxeGridProps } from '#/adapter/vxe-table';
 import type { GenInfo } from '#/api/tool/gen/model';
 
-import { inject } from 'vue';
+import { inject, onMounted, reactive } from 'vue';
 
 import { useVbenVxeGrid } from '#/adapter/vxe-table';
+import { dictOptionSelectList } from '#/api/system/dict/dict-type';
 
 import { validRules, vxeTableColumns } from './gen-data';
 
@@ -15,8 +16,26 @@ import { validRules, vxeTableColumns } from './gen-data';
  */
 const genInfoData = inject('genInfoData') as Ref<GenInfo['info']>;
 
+const dictOptions = reactive<{ label: string; value: string }[]>([
+  { label: '未设置', value: '' },
+]);
+
+/**
+ * 加载字典下拉数据
+ */
+onMounted(async () => {
+  const resp = await dictOptionSelectList();
+
+  const options = resp.map((dict) => ({
+    label: `${dict.dictName} | ${dict.dictType}`,
+    value: dict.dictType,
+  }));
+
+  dictOptions.push(...options);
+});
+
 const gridOptions: VxeGridProps = {
-  columns: vxeTableColumns,
+  columns: vxeTableColumns(dictOptions),
   keepSource: true,
   editConfig: { trigger: 'click', mode: 'cell', showStatus: true },
   editRules: validRules,

@@ -127,6 +127,7 @@ export const drawerSchema: FormSchemaGetter = () => [
     fieldName: 'roleSort',
     label: '角色排序',
     rules: 'required',
+    defaultValue: 0,
   },
   {
     component: 'Select',

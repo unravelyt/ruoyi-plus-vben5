@@ -73,6 +73,7 @@ onMounted(loadTree);
             v-model:value="searchValue"
             :placeholder="$t('pages.common.search')"
             size="small"
+            allow-clear
           >
             <template #enterButton>
               <a-button @click="handleReload">
@@ -95,9 +96,9 @@ onMounted(loadTree);
             @select="$emit('select')"
           >
             <template #title="{ label }">
-              <span v-if="label.indexOf(searchValue) > -1">
+              <span v-if="label.includes(searchValue)">
                 {{ label.substring(0, label.indexOf(searchValue)) }}
-                <span style="color: #f50">{{ searchValue }}</span>
+                <span class="text-primary">{{ searchValue }}</span>
                 {{
                   label.substring(
                     label.indexOf(searchValue) + searchValue.length,

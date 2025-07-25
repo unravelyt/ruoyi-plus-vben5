@@ -202,13 +202,31 @@ const events = computed(() => {
 </template>
 
 <style lang="scss">
-/***
-由于modal/drawer的zIndex升级后为2000
-这里会造成遮挡 修改为更高的zIndex
-*/
+// 展开层元素z-index
+$dropdown-index: 2025;
+
+@mixin tinymce-valid-fail($color) {
+  .app-tinymce {
+    // 最外层的tinymce容器
+    .tox-tinymce {
+      border-color: $color;
+    }
+    // focus样式
+    .tox .tox-edit-area::before {
+      border-color: $color;
+      border-right: none;
+      border-left: none;
+    }
+  }
+}
+
 .tox.tox-silver-sink.tox-tinymce-aux {
   /** 该样式默认为1300的zIndex  */
-  z-index: 2025;
+  z-index: $dropdown-index;
+}
+
+.tox-fullscreen .tox.tox-tinymce-aux {
+  z-index: $dropdown-index !important;
 }
 
 .app-tinymce {
@@ -218,5 +236,29 @@ const events = computed(() => {
   .tox-promotion {
     display: none;
   }
+
+  /** 保持focus时与primary色一致 */
+  .tox .tox-edit-area::before {
+    border-color: hsl(var(--primary));
+  }
+}
+
+// antd原生表单 校验失败样式
+.ant-form-item:has(.ant-form-item-explain-error) {
+  $error-color: #ff3860;
+
+  @include tinymce-valid-fail($error-color);
+}
+
+// useVbenForm 校验失败样式
+.form-valid-error {
+  $error-color: hsl(var(--destructive));
+
+  @include tinymce-valid-fail($error-color);
+}
+
+// 全屏下样式处理 不去掉transform位置会异常
+div[role='dialog']:has(.tox.tox-tinymce.tox-fullscreen) {
+  transform: none !important;
 }
 </style>

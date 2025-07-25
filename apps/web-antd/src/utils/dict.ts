@@ -1,3 +1,4 @@
+import { UnauthorizedException } from '#/api/request';
 import { dictDataInfo } from '#/api/system/dict/dict-data';
 import { useDictStore } from '#/store/dict';
 
@@ -27,9 +28,16 @@ function fetchAndCacheDictData<T>(
           // 内部处理了push的逻辑 这里不用push
           setDictInfo(dictName, resp, formatNumber);
         })
-        .catch(() => {
-          // 401时 移除字典缓存 下次登录重新获取
-          dictRequestCache.delete(dictName);
+        .catch((error) => {
+          /**
+           * 需要判断是否为401抛出的特定异常 401清除缓存
+           * 其他error清除缓存会导致无限循环调用字典接口 则不做处理
+           */
+          if (error instanceof UnauthorizedException) {
+            // 401时 移除字典缓存 下次登录重新获取
+            dictRequestCache.delete(dictName);
+          }
+          // 其他不做处理
         })
         .finally(() => {
           // 移除请求状态缓存

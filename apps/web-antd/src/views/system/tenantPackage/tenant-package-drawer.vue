@@ -10,7 +10,7 @@ import { cloneDeep, eachTree } from '@vben/utils';
 import { omit } from 'lodash-es';
 
 import { useVbenForm } from '#/adapter/form';
-import { menuTreeSelect, tenantPackageMenuTreeSelect } from '#/api/system/menu';
+import { tenantPackageMenuTreeSelect } from '#/api/system/menu';
 import {
   packageAdd,
   packageInfo,
@@ -40,30 +40,18 @@ const [BasicForm, formApi] = useVbenForm({
 
 const menuTree = ref<MenuOption[]>([]);
 async function setupMenuTree(id?: number | string) {
-  if (id) {
-    const resp = await tenantPackageMenuTreeSelect(id);
-    const menus = resp.menus;
-    // i18n处理
-    eachTree(menus, (node) => {
-      node.label = $t(node.label);
-    });
-    // 设置菜单信息
-    menuTree.value = resp.menus;
-    // keys依赖于menu 需要先加载menu
-    await nextTick();
-    await formApi.setFieldValue('menuIds', resp.checkedKeys);
-  } else {
-    const resp = await menuTreeSelect();
-    // i18n处理
-    eachTree(resp, (node) => {
-      node.label = $t(node.label);
-    });
-    // 设置菜单信息
-    menuTree.value = resp;
-    // keys依赖于menu 需要先加载menu
-    await nextTick();
-    await formApi.setFieldValue('menuIds', []);
-  }
+  // 0为新增使用  获取除了`租户管理`的所有菜单
+  const resp = await tenantPackageMenuTreeSelect(id ?? 0);
+  const menus = resp.menus;
+  // i18n处理
+  eachTree(menus, (node) => {
+    node.label = $t(node.label);
+  });
+  // 设置菜单信息
+  menuTree.value = menus;
+  // keys依赖于menu 需要先加载menu
+  await nextTick();
+  await formApi.setFieldValue('menuIds', resp.checkedKeys);
 }
 
 async function customFormValueGetter() {
