@@ -17,11 +17,15 @@ export interface TaskInfo {
   businessId: string;
   nodeCode: string;
   nodeName: string;
+  /**
+   * >5.5.0版本才有自定义标题
+   */
+  businessTitle?: string;
   nodeType: number;
   permissionList?: any;
   userList?: any;
   formCustom: string;
-  formPath?: any;
+  formPath: string;
   flowCode: string;
   version: string;
   flowStatus: string;
@@ -62,6 +66,10 @@ export interface StartWorkFlowReqData {
    * 流程变量
    */
   variables: Record<string, any>;
+  /**
+   * 流程实例业务扩展业务对象 必须要有不能为null 可以为空对象
+   */
+  flowInstanceBizExtBo: Record<string, any>;
 }
 
 export interface TaskOperationData {

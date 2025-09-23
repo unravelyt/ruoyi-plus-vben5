@@ -123,3 +123,18 @@ html[data-vxe-ui-theme='dark'] .vxe-grid {
 .vxe-grid--layout-body-content-wrapper {
   overflow: hidden;
 }
+
+/* modal/drawer中使用 tooltip需要设置更高的z-index 防止被遮挡 */
+body:has(div[data-dismissable-layer]) .vxe-tooltip--wrapper {
+  /* tooltip直接在style中设置 需要!important来实现优先级覆盖 */
+  z-index: calc(var(--popup-z-index) + 1) !important;
+}
+
+/*
+在border: inner场景下 去除下边的边框
+TODO: 最后一条数据hover/check仍会显示边框
+*/
+.vxe-table.border--inner .vxe-table--border-line {
+  border-radius: var(--vxe-ui-table-border-radius)
+    var(--vxe-ui-table-border-radius) 0 0;
+}

@@ -128,6 +128,8 @@ const initOptions = computed((): InitOptions => {
     skin: skinName.value,
     toolbar,
     toolbar_mode: 'sliding',
+    // 隐藏下面的 按xxx获取帮助
+    help_accessibility: false,
     ...options,
     /**
      * 覆盖默认的base64行为
@@ -147,9 +149,18 @@ const initOptions = computed((): InitOptions => {
         };
         uploadApi(file, { onUploadProgress: progressEvent })
           .then((response) => {
-            const { url } = response as unknown as UploadResult;
+            const { url, ossId } = response as unknown as UploadResult;
             console.log('tinymce上传图片:', url);
             resolve(url);
+            // 放在宏队列才能获取
+            setTimeout(() => {
+              const imgDom = editorRef.value?.dom.select(`img[src="${url}"]`);
+              if (imgDom) {
+                editorRef.value?.dom.setAttrib(imgDom, 'data-oss-id', ossId);
+              } else {
+                console.warn('无法获取图片dom, 存储数据可能会出现问题');
+              }
+            });
           })
           .catch((error) => {
             console.error('tinymce上传图片失败:', error);

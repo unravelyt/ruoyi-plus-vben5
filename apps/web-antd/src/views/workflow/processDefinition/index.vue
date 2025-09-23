@@ -150,12 +150,12 @@ const router = useRouter();
 /**
  * 流程设计/预览
  * @param row row
- * @param disabled true为预览，false为设计
+ * @param _disabled true为预览，false为设计
  */
-function handleDesign(row: any, disabled: boolean) {
+function handleDesign(row: any, _disabled: boolean) {
   router.push({
     path: '/workflow/design/index',
-    query: { definitionId: row.id, disabled: String(disabled) },
+    query: { definitionId: row.id },
   });
 }
 

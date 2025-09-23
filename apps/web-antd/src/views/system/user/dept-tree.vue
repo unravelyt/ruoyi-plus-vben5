@@ -12,7 +12,10 @@ import { getDeptTree } from '#/api/system/user';
 
 defineOptions({ inheritAttrs: false });
 
-withDefaults(defineProps<{ showSearch?: boolean }>(), { showSearch: true });
+const props = withDefaults(defineProps<Props>(), {
+  showSearch: true,
+  api: getDeptTree,
+});
 
 const emit = defineEmits<{
   /**
@@ -24,6 +27,17 @@ const emit = defineEmits<{
    */
   select: [];
 }>();
+
+interface Props {
+  /**
+   * 调用的接口
+   */
+  api?: () => Promise<DeptTree[]>;
+  /**
+   * 是否显示搜索框
+   */
+  showSearch?: boolean;
+}
 
 const selectDeptId = defineModel('selectDeptId', {
   required: true,
@@ -46,7 +60,7 @@ async function loadTree() {
   searchValue.value = '';
   selectDeptId.value = [];
 
-  const ret = await getDeptTree();
+  const ret = await props.api();
 
   deptTreeArray.value = ret;
   showTreeSkeleton.value = false;

@@ -26,12 +26,12 @@ const title = computed(() => {
 
 const [BasicForm, formApi] = useVbenForm({
   commonConfig: {
-    formItemClass: 'col-span-3',
+    formItemClass: 'col-span-6',
     labelWidth: 100,
   },
   schema: drawerSchema(),
   showDefaultActions: false,
-  wrapperClass: 'grid-cols-3',
+  wrapperClass: 'grid-cols-6',
 });
 
 const { onBeforeClose, markInitialized, resetInitialized } = useBeforeCloseDiff(

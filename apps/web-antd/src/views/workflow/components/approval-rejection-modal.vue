@@ -91,10 +91,10 @@ const [BasicModal, modalApi] = useVbenModal({
     }
     modalApi.modalLoading(true);
 
-    const { taskId, definitionId, nodeCode } = modalApi.getData() as ModalProps;
+    const { taskId, nodeCode } = modalApi.getData() as ModalProps;
     await formApi.setFieldValue('taskId', taskId);
 
-    const resp = await getBackTaskNode(definitionId, nodeCode);
+    const resp = await getBackTaskNode(taskId, nodeCode);
     const options = resp.map((item) => ({
       label: item.nodeName,
       value: item.nodeCode,

@@ -66,6 +66,20 @@ export function ossDownload(
 }
 
 /**
+ * 在使用浏览器原生下载前检测是否登录
+ * 这里的方案为请求一次接口 如果登录超时会走到response的401逻辑
+ * 如果没有listByIds的权限 也不会弹出无权限提示
+ * 仅仅是为了检测token是否有效使用
+ *
+ * @returns void
+ */
+export function checkLoginBeforeDownload() {
+  return requestClient.get<OssFile[]>(`${Api.ossInfo}/1`, {
+    errorMessageMode: 'none',
+  });
+}
+
+/**
  * 删除文件
  * @param ossIds id数组
  * @returns void

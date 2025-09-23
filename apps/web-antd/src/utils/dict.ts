@@ -1,22 +1,19 @@
-import { UnauthorizedException } from '#/api/request';
+import { UnauthorizedException } from '#/api/helper';
 import { dictDataInfo } from '#/api/system/dict/dict-data';
 import { useDictStore } from '#/store/dict';
 
 /**
- * 抽取公共逻辑的基础方法
+ * 一般是Select, Radio, Checkbox等组件使用
+ * @warning 注意内部为异步实现 所以不要写这种`getDictOptions()[0]`的代码 会获取不到
+ * @warning 需要保持`formatNumber`统一 在所有调用地方需要一致 不能出现A处为string B处为number
+ *
  * @param dictName 字典名称
- * @param dataGetter 获取字典数据的函数
  * @param formatNumber 是否格式化字典value为number类型
- * @returns 数据
+ * @returns Options数组
  */
-function fetchAndCacheDictData<T>(
-  dictName: string,
-  dataGetter: () => T[],
-  formatNumber = false,
-): T[] {
-  const { dictRequestCache, setDictInfo } = useDictStore();
-  // 有调用方决定如何获取数据
-  const dataList = dataGetter();
+export function getDictOptions(dictName: string, formatNumber = false) {
+  const { dictRequestCache, setDictInfo, getDictOptions } = useDictStore();
+  const dataList = getDictOptions(dictName);
 
   // 检查请求状态缓存
   if (dataList.length === 0 && !dictRequestCache.has(dictName)) {
@@ -53,30 +50,4 @@ function fetchAndCacheDictData<T>(
     );
   }
   return dataList;
-}
-
-/**
- * 这里是提供给渲染标签使用的方法
- * @deprecated 使用getDictOptions代替 于下个版本删除
- * @param dictName 字典名称
- * @returns 字典信息
- */
-export function getDict(dictName: string) {
-  const { getDictOptions } = useDictStore();
-  return fetchAndCacheDictData(dictName, () => getDictOptions(dictName));
-}
-
-/**
- * 一般是Select, Radio, Checkbox等组件使用
- * @param dictName 字典名称
- * @param formatNumber 是否格式化字典value为number类型
- * @returns Options数组
- */
-export function getDictOptions(dictName: string, formatNumber = false) {
-  const { getDictOptions } = useDictStore();
-  return fetchAndCacheDictData(
-    dictName,
-    () => getDictOptions(dictName),
-    formatNumber,
-  );
 }

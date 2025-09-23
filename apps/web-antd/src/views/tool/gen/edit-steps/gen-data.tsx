@@ -2,8 +2,6 @@ import type { Recordable } from '@vben/types';
 
 import type { VxeGridProps } from '#/adapter/vxe-table';
 
-import { getPopupContainer } from '@vben/utils';
-
 import { Checkbox, Input, Select } from 'ant-design-vue';
 
 const JavaTypes: string[] = [
@@ -104,7 +102,7 @@ export const vxeTableColumns: (
         return (
           <Select
             class="w-full"
-            getPopupContainer={getPopupContainer}
+            getPopupContainer={() => document.body}
             options={javaTypeOptions}
             v-model:value={row.javaType}
           ></Select>
@@ -208,7 +206,7 @@ export const vxeTableColumns: (
         return (
           <Select
             class="w-full"
-            getPopupContainer={getPopupContainer}
+            getPopupContainer={() => document.body}
             options={queryTypeOptions}
             v-model:value={row.queryType}
           ></Select>
@@ -252,7 +250,7 @@ export const vxeTableColumns: (
         return (
           <Select
             class="w-full"
-            getPopupContainer={getPopupContainer}
+            getPopupContainer={() => document.body}
             options={componentsOptions}
             v-model:value={row.htmlType}
           ></Select>
@@ -293,7 +291,7 @@ export const vxeTableColumns: (
             allowClear={true}
             class="w-full"
             disabled={disabled}
-            getPopupContainer={getPopupContainer}
+            getPopupContainer={() => document.body}
             onDeselect={onDeselect}
             options={dictOptions}
             placeholder="请选择字典类型"

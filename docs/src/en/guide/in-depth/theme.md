@@ -28,9 +28,10 @@ You can check the list below to understand all the available variables.
 
 ```css
 :root {
-  --font-family: -apple-system, blinkmacsystemfont, 'Segoe UI', roboto,
-    'Helvetica Neue', arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-family:
+    -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue',
+    arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
 
   /* Default background color of <body />...etc */
   --background: 0 0% 100%;
@@ -53,7 +54,7 @@ You can check the list below to understand all the available variables.
 
   /* Theme Colors */
 
-  --primary: 212 100% 45%;
+  --primary: 215 100% 54%;
   --primary-foreground: 0 0% 98%;
 
   /* Used for destructive actions such as <Button variant="destructive"> */
@@ -264,7 +265,7 @@ export const overridesPreferences = defineOverridesPreferences({
     // Error color
     colorDestructive: 'hsl(348 100% 61%)',
     // Primary color
-    colorPrimary: 'hsl(212 100% 45%)',
+    colorPrimary: 'hsl(215 100% 54%)',
     // Success color
     colorSuccess: 'hsl(144 57% 58%)',
     // Warning color
@@ -322,9 +323,10 @@ type BuiltinThemeType =
 
 ```css
 :root {
-  --font-family: -apple-system, blinkmacsystemfont, 'Segoe UI', roboto,
-    'Helvetica Neue', arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-family:
+    -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue',
+    arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
 
   /* Default background color of <body />...etc */
   --background: 0 0% 100%;
@@ -351,7 +353,7 @@ type BuiltinThemeType =
 
   /* Theme Colors */
 
-  --primary: 212 100% 45%;
+  --primary: 215 100% 54%;
   --primary-foreground: 0 0% 98%;
 
   /* Used for destructive actions such as <Button variant="destructive"> */

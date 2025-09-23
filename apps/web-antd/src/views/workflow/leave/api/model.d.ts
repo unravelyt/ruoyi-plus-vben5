@@ -35,6 +35,7 @@ export interface LeaveVO {
    *
    */
   status: string;
+  applyCode?: string;
 }
 
 export interface LeaveForm extends BaseEntity {

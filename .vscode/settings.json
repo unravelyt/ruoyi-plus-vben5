@@ -242,6 +242,7 @@
     "napi",
     "nolebase",
     "rollup",
+    "Spel",
     "tinymce",
     "vitest"
   ]

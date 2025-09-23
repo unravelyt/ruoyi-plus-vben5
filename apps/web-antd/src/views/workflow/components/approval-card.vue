@@ -43,7 +43,11 @@ const diffUpdateTimeString = computed(() => {
     class="cursor-pointer rounded-lg border-[1px] border-solid p-3 transition-shadow duration-300 ease-in-out hover:shadow-lg"
     @click.stop="handleClick"
   >
-    <Descriptions :column="1" :title="info.flowName" size="middle">
+    <Descriptions
+      :column="1"
+      :title="info.businessTitle ?? info.flowName"
+      size="middle"
+    >
       <template #extra>
         <component
           :is="renderDict(info.flowStatus, DictEnum.WF_BUSINESS_STATUS)"
@@ -62,7 +66,7 @@ const diffUpdateTimeString = computed(() => {
     <div class="flex w-full items-center justify-between text-[14px]">
       <div class="flex items-center gap-1 overflow-hidden whitespace-nowrap">
         <VbenAvatar
-          :alt="info.createByName"
+          :alt="info?.createByName"
           class="bg-primary size-[24px] rounded-full text-[10px] text-white"
           src=""
         />

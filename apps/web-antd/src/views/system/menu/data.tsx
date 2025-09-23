@@ -62,6 +62,8 @@ export const columns: VxeGridProps['columns'] = [
     field: 'menuName',
     treeNode: true,
     width: 200,
+    // 层级更明显显示
+    align: 'left',
     slots: {
       // 需要i18n支持 否则返回原始值
       default: ({ row }) => $t(row.menuName),
@@ -381,5 +383,11 @@ export const drawerSchema: FormSchemaGetter = () => [
     fieldName: 'isCache',
     help: '路由的keepAlive属性',
     label: '是否缓存',
+  },
+  {
+    component: 'Input',
+    fieldName: 'remark',
+    label: '拓展字段',
+    formItemClass: 'items-baseline',
   },
 ];

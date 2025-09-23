@@ -165,7 +165,7 @@ const [BasicDrawer, drawerApi] = useVbenDrawer({
     formApi.updateSchema([
       { componentProps: { disabled: isUpdate.value }, fieldName: 'userName' },
       {
-        dependencies: { show: () => !isUpdate.value, triggerFields: ['id'] },
+        dependencies: { if: () => !isUpdate.value, triggerFields: ['id'] },
         fieldName: 'password',
       },
     ]);

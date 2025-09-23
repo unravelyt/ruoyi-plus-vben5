@@ -5,6 +5,17 @@ import { OptionsTag } from '#/components/table';
 
 import { publishStatusOptions } from './constant';
 
+export const designerModeOptions = [
+  {
+    label: '经典模式',
+    value: 'CLASSICS',
+  },
+  {
+    label: '仿钉钉模式',
+    value: 'MIMIC',
+  },
+];
+
 export const querySchema: FormSchemaGetter = () => [
   {
     component: 'Input',
@@ -30,6 +41,11 @@ export const columns: VxeGridProps['columns'] = [
     title: '流程code',
     minWidth: 150,
   },
+  // {
+  //   field: 'modelValue',
+  //   title: '设计器模式',
+  //   minWidth: 150,
+  // },
   {
     field: 'version',
     title: '版本号',
@@ -93,6 +109,18 @@ export const modalSchema: FormSchemaGetter = () => [
     fieldName: 'flowName',
     label: '流程名称',
     rules: 'required',
+  },
+  {
+    component: 'RadioGroup',
+    fieldName: 'modelValue',
+    label: '设计器模式',
+    componentProps: {
+      options: designerModeOptions,
+      optionType: 'button',
+      buttonStyle: 'solid',
+    },
+    defaultValue: 'CLASSICS',
+    rules: 'selectRequired',
   },
   {
     component: 'Input',

@@ -5,9 +5,7 @@ import type { LeaveForm } from './api/model';
 
 import type { VxeGridProps } from '#/adapter/vxe-table';
 
-import { useRouter } from 'vue-router';
-
-import { Page, useVbenModal } from '@vben/common-ui';
+import { Page, useVbenDrawer, useVbenModal } from '@vben/common-ui';
 import { getVxePopupContainer } from '@vben/utils';
 
 import { Modal, Popconfirm, Space } from 'ant-design-vue';
@@ -16,9 +14,11 @@ import { useVbenVxeGrid, vxeCheckboxChecked } from '#/adapter/vxe-table';
 import { cancelProcessApply } from '#/api/workflow/instance';
 import { commonDownloadExcel } from '#/utils/file/download';
 
-import { flowInfoModal } from '../components';
+import { applyModal, flowInfoModal } from '../components';
 import { leaveExport, leaveList, leaveRemove } from './api';
 import { columns, querySchema } from './data';
+import { useRouteIdEdit } from './hook';
+import leaveDrawer from './leave-drawer.vue';
 
 const formOptions: VbenFormProps = {
   commonConfig: {
@@ -60,20 +60,53 @@ const gridOptions: VxeGridProps = {
   },
   // 表格全局唯一表示 保存列配置需要用到
   id: 'workflow-leave-index',
+  cellClassName: ({ row }) => {
+    // 草稿状态 可点击
+    if (row.status !== 'draft') {
+      return 'cursor-pointer';
+    }
+  },
 };
 
 const [BasicTable, tableApi] = useVbenVxeGrid({
   formOptions,
   gridOptions,
+  gridEvents: {
+    cellClick: ({ row, column }) => {
+      // 草稿状态 不做处理
+      // 操作列 不做处理
+      if (row.status === 'draft' || column.field === 'action') {
+        return;
+      }
+      // 查看详情
+      handleInfo(row);
+    },
+  },
 });
 
-const router = useRouter();
+const [ApplyModal, applyModalApi] = useVbenModal({
+  connectedComponent: applyModal,
+});
+const [LeaveDrawer, leaveDrawerApi] = useVbenDrawer({
+  connectedComponent: leaveDrawer,
+});
+
 function handleAdd() {
-  router.push('/workflow/leaveEdit/index');
+  leaveDrawerApi.setData({ applyModalApi }).open();
 }
 
 async function handleEdit(row: Required<LeaveForm>) {
-  router.push({ path: '/workflow/leaveEdit/index', query: { id: row.id } });
+  leaveDrawerApi.setData({ id: row.id, applyModalApi }).open();
+}
+
+useRouteIdEdit((id) => {
+  // 打开编辑
+  leaveDrawerApi.setData({ id, applyModalApi }).open();
+});
+
+async function handleCompleteOrCancel() {
+  leaveDrawerApi.close();
+  tableApi.query();
 }
 
 async function handleDelete(row: Required<LeaveForm>) {
@@ -116,6 +149,7 @@ function handleDownloadExcel() {
 const [FlowInfoModal, flowInfoModalApi] = useVbenModal({
   connectedComponent: flowInfoModal,
 });
+
 function handleInfo(row: Required<LeaveForm>) {
   flowInfoModalApi.setData({ businessId: row.id });
   flowInfoModalApi.open();
@@ -152,49 +186,59 @@ function handleInfo(row: Required<LeaveForm>) {
         </Space>
       </template>
       <template #action="{ row }">
-        <Space>
-          <ghost-button
-            v-if="['draft', 'cancel', 'back'].includes(row.status)"
+        <a-button
+          size="small"
+          type="link"
+          :disabled="!['draft', 'cancel', 'back'].includes(row.status)"
+          v-access:code="['workflow:leave:edit']"
+          @click.stop="handleEdit(row)"
+        >
+          {{ $t('pages.common.edit') }}
+        </a-button>
+        <Popconfirm
+          :get-popup-container="getVxePopupContainer"
+          placement="left"
+          title="确认撤销？"
+          :disabled="!['waiting'].includes(row.status)"
+          @confirm.stop="handleRevoke(row)"
+          @cancel.stop=""
+        >
+          <a-button
+            size="small"
+            type="link"
+            :disabled="!['waiting'].includes(row.status)"
             v-access:code="['workflow:leave:edit']"
-            @click.stop="handleEdit(row)"
+            @click.stop=""
           >
-            {{ $t('pages.common.edit') }}
-          </ghost-button>
-          <Popconfirm
-            :get-popup-container="getVxePopupContainer"
-            placement="left"
-            title="确认撤销？"
-            @confirm="handleRevoke(row)"
+            撤销
+          </a-button>
+        </Popconfirm>
+        <Popconfirm
+          :get-popup-container="getVxePopupContainer"
+          placement="left"
+          title="确认删除？"
+          :disabled="!['draft', 'cancel', 'back'].includes(row.status)"
+          @confirm.stop="handleDelete(row)"
+          @cancel.stop=""
+        >
+          <a-button
+            size="small"
+            type="link"
+            :disabled="!['draft', 'cancel', 'back'].includes(row.status)"
+            danger
+            v-access:code="['workflow:leave:remove']"
+            @click.stop=""
           >
-            <ghost-button
-              v-if="['waiting'].includes(row.status)"
-              v-access:code="['workflow:leave:edit']"
-              @click.stop=""
-            >
-              撤销
-            </ghost-button>
-          </Popconfirm>
-          <ghost-button v-if="row.status !== 'draft'" @click="handleInfo(row)">
-            详情
-          </ghost-button>
-          <Popconfirm
-            :get-popup-container="getVxePopupContainer"
-            placement="left"
-            title="确认删除？"
-            @confirm="handleDelete(row)"
-          >
-            <ghost-button
-              v-if="['draft', 'cancel', 'back'].includes(row.status)"
-              danger
-              v-access:code="['workflow:leave:remove']"
-              @click.stop=""
-            >
-              {{ $t('pages.common.delete') }}
-            </ghost-button>
-          </Popconfirm>
-        </Space>
+            {{ $t('pages.common.delete') }}
+          </a-button>
+        </Popconfirm>
       </template>
     </BasicTable>
     <FlowInfoModal />
+    <ApplyModal
+      @complete="handleCompleteOrCancel"
+      @cancel="handleCompleteOrCancel"
+    />
+    <LeaveDrawer @reload="() => tableApi.query()" />
   </Page>
 </template>

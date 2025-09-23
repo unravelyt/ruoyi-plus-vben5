@@ -6,6 +6,8 @@ import { ref } from 'vue';
 
 import { useVbenModal } from '@vben/common-ui';
 
+import { Spin } from 'ant-design-vue';
+
 import { getTaskByBusinessId } from '#/api/workflow/instance';
 
 import { ApprovalPanel } from '.';
@@ -20,6 +22,9 @@ const [BasicModal, modalApi] = useVbenModal({
   title: '流程信息',
   class: 'w-[1000px]',
   footer: false,
+  onClosed: () => {
+    taskInfo.value = undefined;
+  },
   onOpenChange: async (isOpen) => {
     if (!isOpen) {
       return null;
@@ -33,6 +38,13 @@ const [BasicModal, modalApi] = useVbenModal({
 
 <template>
   <BasicModal>
-    <ApprovalPanel :task="taskInfo" type="readonly" />
+    <ApprovalPanel :task="taskInfo" type="readonly">
+      <template #empty>
+        <Spin
+          class="flex h-[200px] w-full items-center justify-center"
+          size="large"
+        />
+      </template>
+    </ApprovalPanel>
   </BasicModal>
 </template>

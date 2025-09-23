@@ -1,16 +1,17 @@
 <!--
 审批详情
-约定${task.formPath}/frame 为内嵌表单 用于展示 需要在本地路由添加
-apps/web-antd/src/router/routes/workflow-iframe.ts
+动态渲染要显示的内容 需要再flowDescripionsMap先定义好组件
 -->
-
 <script setup lang="ts">
+import type { FlowComponentsMapMapKey } from '../register';
+
 import type { FlowInfoResponse } from '#/api/workflow/instance/model';
 import type { TaskInfo } from '#/api/workflow/task/model';
 
-import { Divider, Skeleton } from 'ant-design-vue';
+import { Divider } from 'ant-design-vue';
 
 import { ApprovalTimeline } from '.';
+import { flowComponentsMap } from '../register';
 
 defineOptions({
   name: 'ApprovalDetails',
@@ -27,14 +28,14 @@ defineProps<{
 
 <template>
   <div>
-    <!-- 约定${task.formPath}/frame 为内嵌表单 用于展示 需要在本地路由添加 -->
-    <iframe
-      v-show="iframeLoaded"
-      :src="`${task.formPath}/iframe?readonly=true&id=${task.businessId}`"
-      :style="{ height: `${iframeHeight}px` }"
-      class="w-full"
-    ></iframe>
-    <Skeleton v-show="!iframeLoaded" :paragraph="{ rows: 6 }" active />
+    <!--
+     动态渲染要显示的内容 需要再flowDescripionsMap先定义好组件
+     business-id为业务ID 必传
+    -->
+    <component
+      :is="flowComponentsMap[task.formPath as FlowComponentsMapMapKey]"
+      :business-id="task.businessId"
+    />
     <Divider />
     <ApprovalTimeline :list="currentFlowInfo.list" />
   </div>

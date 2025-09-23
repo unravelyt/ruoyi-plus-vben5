@@ -35,6 +35,7 @@ import table from '@iconify/icons-lucide/table';
 import cloudDoneOutlineRounded from '@iconify/icons-material-symbols/cloud-done-outline-rounded';
 import generatingTokensOutline from '@iconify/icons-material-symbols/generating-tokens-outline';
 import LogoDevOutline from '@iconify/icons-material-symbols/logo-dev-outline';
+import expressionIcon from '@iconify/icons-material-symbols/regular-expression-rounded';
 import ccOutline from '@iconify/icons-mdi/cc-outline';
 import tools from '@iconify/icons-mdi/tools';
 import workflowOutline from '@iconify/icons-mdi/workflow-outline';
@@ -118,3 +119,5 @@ addIcon('ant-design:setting-outlined', settingOutline);
 addIcon('flat-color-icons:leave', leave);
 // flow
 addIcon('fluent-mdl2:flow', flow);
+// 流程表达式
+addIcon('material-symbols:regular-expression-rounded', expressionIcon);

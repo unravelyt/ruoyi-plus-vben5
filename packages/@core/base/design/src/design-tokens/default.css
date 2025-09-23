@@ -1,9 +1,10 @@
 :root {
   /** 弹出层的基础层级 **/
   --popup-z-index: 2000;
-  --font-family: -apple-system, blinkmacsystemfont, 'Segoe UI', roboto,
-    'Helvetica Neue', arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-family:
+    -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue',
+    arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
 
   /* Default background color of <body />...etc */
   --background: 0 0% 100%;
@@ -30,7 +31,7 @@
 
   /* 主题颜色 */
 
-  --primary: 212 100% 45%;
+  --primary: 215 100% 54%;
   --primary-foreground: 0 0% 98%;
 
   /* Used for destructive actions such as <Button variant="destructive"> */

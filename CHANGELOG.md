@@ -1,4 +1,45 @@
+# 1.5.0
+
+对应后端版本 单体/微服务: 5.5.0/2.5.0
+
+**FEATURES**
+
+- 流程表达式 follow后端更新
+- websocket功能(默认关闭)
+- useVbenForm 增加 TimeRangePicker(时间区间选择) 组件
+- 字典(DictTag)支持fallback属性(未匹配到字典项时的回显)
+- 微服务版本 logout接口在配置错误的情况返回401的提示(解决死循环调用logout接口)
+- Tinymce 保存图片id 提供`contentWithOssIdTransform`来显示私有桶图片
+- Vxe/Antd可编辑表格适配器(样式等) 解决浮层元素点击与失焦冲突导致无法选中的问题
+- 工作流 后端发起流程demo
+- API加密 前端已经实现RSA/SM2 AES/SM4
+- Tinymce升级到7.9.1(v7版本的latest)
+
+**REFACTOR**
+
+- 流程表单详情重构 使用映射组件方案替代iframe显示 加载速度更快
+- Modal/Drawer中使用VxeTable tooltip需要设置更高的z-index 防止被遮挡
+- 字典(DictTag)使用tsx写法重构
+- 请假申请 按钮区域重构
+- oss下载 重构为浏览器原生下载(非阻塞)
+- 流程相关样式更新
+- 请假申请 表单更改为drawer方式 替换新页面打开
+- API加密 迁移到@vben/utils下
+- 菜单管理 改为节点懒加载(去除展开全部功能) 关闭虚拟滚动(可自行开启)
+
+**OTHERS**
+
+- 移除`getDict`方法 & getDictOptions代码修改(逻辑不变)
+- 在`isTransformResponse`场景下对401的校验
+
+**BUG FIX**
+
+- 解决热更新Cannot read properties of null (reading 'nextSibling')报错
+- OAuth登录 菜单打开后会折叠一次(路由重复跳转导致)
+
 # 1.4.1
+
+对应后端版本 单体/微服务: 5.4.1/2.4.1
 
 **FEATURES**
 

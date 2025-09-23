@@ -1,3 +1,4 @@
+import type { DeptTree } from '../user/model';
 import type { Post } from './model';
 
 import type { ID, IDS, PageQuery } from '#/api/common';
@@ -73,4 +74,12 @@ export function postRemove(postIds: IDS) {
  */
 export function postOptionSelect(deptId: ID) {
   return requestClient.get<Post[]>(Api.postSelect, { params: { deptId } });
+}
+
+/**
+ * 岗位专用 - 获取部门树
+ * @returns 部门树
+ */
+export function postDeptTreeSelect() {
+  return requestClient.get<DeptTree[]>('/system/post/deptTree');
 }

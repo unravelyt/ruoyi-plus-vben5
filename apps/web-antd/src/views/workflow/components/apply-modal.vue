@@ -17,6 +17,10 @@ interface Emits {
    * 完成
    */
   complete: [];
+  /**
+   * 取消 此时已经变成草稿状态了
+   */
+  cancel: [];
 }
 
 const emit = defineEmits<Emits>();
@@ -31,6 +35,10 @@ const [BasicModal, modalApi] = useVbenModal({
   title: '流程发起',
   fullscreenButton: false,
   onConfirm: handleSubmit,
+  onCancel: () => {
+    emit('cancel');
+    modalApi.close();
+  },
   async onOpenChange(isOpen) {
     if (!isOpen) {
       return null;

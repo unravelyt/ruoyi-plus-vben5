@@ -9,12 +9,14 @@ import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { Page, useVbenModal } from '@vben/common-ui';
+import { useAppConfig } from '@vben/hooks';
 import { $t } from '@vben/locales';
+import { stringify } from '@vben/request';
+import { useAccessStore } from '@vben/stores';
 import { getVxePopupContainer } from '@vben/utils';
 
 import {
   Image,
-  message,
   Modal,
   Popconfirm,
   Space,
@@ -29,9 +31,8 @@ import {
   vxeCheckboxChecked,
 } from '#/adapter/vxe-table';
 import { configInfoByKey } from '#/api/system/config';
-import { ossDownload, ossList, ossRemove } from '#/api/system/oss';
-import { calculateFileSize } from '#/utils/file';
-import { downloadByData } from '#/utils/file/download';
+import { checkLoginBeforeDownload, ossList, ossRemove } from '#/api/system/oss';
+import { downloadByUrl } from '#/utils/file/download';
 
 import { supportImageList } from './constant';
 import { columns, querySchema } from './data';
@@ -112,27 +113,50 @@ const [BasicTable, tableApi] = useVbenVxeGrid({
   },
 });
 
+// async function handleDownload(row: OssFile) {
+//   const downloadSize = ref($t('pages.common.downloadLoading'));
+//   const hideLoading = message.loading({
+//     content: () => downloadSize.value,
+//     duration: 0,
+//   });
+//   try {
+//     const data = await ossDownload(row.ossId, (e) => {
+//       // 计算下载进度
+//       const percent = Math.floor((e.loaded / e.total!) * 100);
+//       // 已经下载
+//       const current = calculateFileSize(e.loaded);
+//       // 总大小
+//       const total = calculateFileSize(e.total!);
+//       downloadSize.value = `已下载: ${current}/${total} (${percent}%)`;
+//     });
+//     downloadByData(data, row.originalName);
+//     message.success('下载完成');
+//   } finally {
+//     hideLoading();
+//   }
+// }
+
+const { apiURL, clientId } = useAppConfig(
+  import.meta.env,
+  import.meta.env.PROD,
+);
+const accessStore = useAccessStore();
+
+/**
+ * 浏览器直接接管下载 相较于axios请求 不会阻塞
+ * @param row oss信息
+ */
 async function handleDownload(row: OssFile) {
-  const downloadSize = ref($t('pages.common.downloadLoading'));
-  const hideLoading = message.loading({
-    content: () => downloadSize.value,
-    duration: 0,
-  });
-  try {
-    const data = await ossDownload(row.ossId, (e) => {
-      // 计算下载进度
-      const percent = Math.floor((e.loaded / e.total!) * 100);
-      // 已经下载
-      const current = calculateFileSize(e.loaded);
-      // 总大小
-      const total = calculateFileSize(e.total!);
-      downloadSize.value = `已下载: ${current}/${total} (${percent}%)`;
-    });
-    downloadByData(data, row.originalName);
-    message.success('下载完成');
-  } finally {
-    hideLoading();
-  }
+  await checkLoginBeforeDownload();
+
+  const params = {
+    clientid: clientId,
+    Authorization: `Bearer ${accessStore.accessToken}`,
+  };
+
+  const downloadLink = `${apiURL}/resource/oss/download/${row.ossId}?${stringify(params)}`;
+  // fileName不设置也行 默认会取header里的名称
+  downloadByUrl({ fileName: row.fileName, url: downloadLink });
 }
 
 async function handleDelete(row: OssFile) {

@@ -105,7 +105,14 @@ async function handleSave() {
     >
       <Tabs v-model:active-key="currentTab" size="middle">
         <template #rightExtra>
-          <a-button type="primary" @click="handleSave">保存配置</a-button>
+          <!-- 因为编辑表格判断点击单元格之外的元素会取消编辑状态，此时需要事件拦截 -->
+          <a-button
+            class="vxe-table--ignore-clear"
+            type="primary"
+            @click="handleSave"
+          >
+            保存配置
+          </a-button>
         </template>
         <TabPane key="setting" tab="生成信息" :force-render="true">
           <BasicSetting ref="basicSettingRef" />

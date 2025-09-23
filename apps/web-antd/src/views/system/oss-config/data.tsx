@@ -193,7 +193,7 @@ export const drawerSchema: FormSchemaGetter = () => [
     },
     defaultValue: '0',
     fieldName: 'accessPolicy',
-    formItemClass: 'col-span-3 lg:col-span-2',
+    formItemClass: 'col-span-6 lg:col-span-3',
     label: '权限桶类型',
   },
   {
@@ -205,7 +205,7 @@ export const drawerSchema: FormSchemaGetter = () => [
     },
     defaultValue: 'N',
     fieldName: 'isHttps',
-    formItemClass: 'col-span-3 lg:col-span-1',
+    formItemClass: 'col-span-6 lg:col-span-3',
     label: '是否https',
     rules: 'required',
   },

@@ -13,7 +13,8 @@ setupVbenVxeTable({
     vxeUI.setConfig({
       grid: {
         align: 'center',
-        border: false,
+        // https://vxetable.cn/#/component/table/base/border
+        border: 'inner',
         minHeight: 180,
         formConfig: {
           // 全局禁用vxe-table的表单配置，使用formOptions

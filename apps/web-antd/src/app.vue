@@ -41,3 +41,13 @@ useUploadTip();
     </App>
   </ConfigProvider>
 </template>
+
+<style lang="scss">
+body {
+  /**
+   * 全局启用 抗锯齿字体
+   * @see https://developer.mozilla.org/zh-CN/docs/Web/CSS/font-smooth
+   */
+  @apply antialiased;
+}
+</style>

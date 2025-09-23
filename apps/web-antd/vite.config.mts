@@ -35,4 +35,4 @@ export default defineConfig(async () => {
       },
     },
   };
-});
+}) as any;

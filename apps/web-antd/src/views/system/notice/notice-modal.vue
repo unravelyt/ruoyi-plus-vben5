@@ -17,6 +17,7 @@ import { pick } from 'lodash-es';
 
 import { noticeAdd, noticeInfo, noticeUpdate } from '#/api/system/notice';
 import { Tinymce } from '#/components/tinymce';
+import { contentWithOssIdTransform } from '#/components/tinymce/src/helper';
 import { getDictOptions } from '#/utils/dict';
 import { useBeforeCloseDiff } from '#/utils/popup';
 
@@ -104,6 +105,12 @@ const [BasicModal, modalApi] = useVbenModal({
       const record = await noticeInfo(id);
       // 只赋值存在的字段
       const filterRecord = pick(record, Object.keys(defaultValues));
+
+      // 你可以调用这个方法来显示私有桶的图片（每次获取最新）
+      // 如果你是公开桶 最好去掉这段代码 会造成不必要的查询
+      filterRecord.noticeContent =
+        (await contentWithOssIdTransform(record.noticeContent)) ?? '';
+
       formData.value = filterRecord;
     }
     await markInitialized();
