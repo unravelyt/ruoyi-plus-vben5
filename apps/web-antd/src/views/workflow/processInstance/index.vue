@@ -150,9 +150,10 @@ const [InstanceVariableModal, instanceVariableModalApi] = useVbenModal({
   connectedComponent: instanceVariableModal,
 });
 function handleVariable(row: Recordable<any>) {
-  instanceVariableModalApi.setData({ record: row.variable });
+  instanceVariableModalApi.setData({ instanceId: row.id });
   instanceVariableModalApi.open();
 }
+
 const [FlowInfoModal, flowInfoModalApi] = useVbenModal({
   connectedComponent: flowInfoModal,
 });

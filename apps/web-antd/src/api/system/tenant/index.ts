@@ -125,3 +125,13 @@ export function dictSyncTenant(tenantId?: string) {
     successMessageMode: 'message',
   });
 }
+
+/**
+ * 同步租户配置
+ * @returns void
+ */
+export function syncTenantConfig() {
+  return requestClient.get<void>('/system/tenant/syncTenantConfig', {
+    successMessageMode: 'message',
+  });
+}

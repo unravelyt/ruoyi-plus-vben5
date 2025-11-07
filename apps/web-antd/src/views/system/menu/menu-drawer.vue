@@ -115,9 +115,14 @@ const [BasicDrawer, drawerApi] = useVbenDrawer({
 
     if (id) {
       await formApi.setFieldValue('parentId', id);
-      if (update) {
-        // 没有依赖关系 同时加载
-        const [record] = await Promise.all([menuInfo(id), setupMenuSelect()]);
+      // 创建元组(不是数组 元素位置固定)
+      const promise = [
+        update ? menuInfo(id) : null,
+        setupMenuSelect(),
+      ] as const;
+      // 并行获取菜单树选择和菜单信息
+      const [record] = await Promise.all(promise);
+      if (record) {
         await formApi.setValues(record);
       }
     } else {

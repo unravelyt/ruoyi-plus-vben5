@@ -1,5 +1,5 @@
 import type { TaskInfo } from '../task/model';
-import type { FlowInfoResponse } from './model';
+import type { FlowInfoResponse, FlowInstanceVariableResp } from './model';
 
 import type { ID, IDS, PageQuery, PageResult } from '#/api/common';
 
@@ -104,8 +104,8 @@ export function flowInfo(businessId: string) {
  * @returns Map<string,any>
  */
 export function instanceVariable(instanceId: string) {
-  return requestClient.get<Record<string, any>>(
-    `/workflow/instance/variable/${instanceId}`,
+  return requestClient.get<FlowInstanceVariableResp>(
+    `/workflow/instance/instanceVariable/${instanceId}`,
   );
 }
 
@@ -117,4 +117,23 @@ export function workflowInstanceInvalid(data: {
   id: string;
 }) {
   return requestClient.postWithMsg<void>('/workflow/instance/invalid', data);
+}
+
+/**
+ * 修改流程参数
+ * @param data 参数
+ * @param data.instanceId 实例ID
+ * @param data.key 参数key
+ * @param data.value 值
+ * @returns void
+ */
+export function updateFlowVariable(data: {
+  instanceId: string;
+  key: string;
+  value: any;
+}) {
+  return requestClient.putWithMsg<void>(
+    '/workflow/instance/updateVariable',
+    data,
+  );
 }

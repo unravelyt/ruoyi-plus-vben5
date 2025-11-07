@@ -1,6 +1,6 @@
 {
   "name": "@vben/web-antd",
-  "version": "1.5.0",
+  "version": "1.5.2",
   "homepage": "https://vben.pro",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -16,7 +16,8 @@
   },
   "type": "module",
   "scripts": {
-    "build": "pnpm vite build",
+    "build:prod": "pnpm vite build",
+    "build:test": "pnpm vite build --mode test",
     "build:analyze": "pnpm vite build --mode analyze",
     "dev": "pnpm vite --mode development",
     "preview": "vite preview",

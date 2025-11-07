@@ -1,3 +1,5 @@
+export {};
+
 export interface Flow {
   id: string;
   createTime: string;
@@ -38,4 +40,15 @@ export interface Flow {
 export interface FlowInfoResponse {
   instanceId: string;
   list: Flow[];
+}
+
+export interface FlowInstanceVariableResp {
+  /**
+   * json字符串 流程变量
+   */
+  variable: string;
+  variableList: {
+    key: string;
+    value: any;
+  }[];
 }

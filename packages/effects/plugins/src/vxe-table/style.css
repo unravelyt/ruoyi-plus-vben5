@@ -49,6 +49,9 @@
   --vxe-ui-font-primary-lighten-color: hsl(var(--primary) / 60%);
   --vxe-ui-font-primary-darken-color: hsl(var(--primary));
 
+  /* 拖拽列宽颜色 */
+  --vxe-ui-table-resizable-drag-line-color: hsl(var(--primary));
+
   /* --vxe-ui-table-fixed-scrolling-box-shadow-color: rgb(0 0 0 / 80%); */
 
   height: auto !important;
@@ -137,4 +140,9 @@ TODO: 最后一条数据hover/check仍会显示边框
 .vxe-table.border--inner .vxe-table--border-line {
   border-radius: var(--vxe-ui-table-border-radius)
     var(--vxe-ui-table-border-radius) 0 0;
+}
+
+/* modal/drawer里使用列配置 重置列弹窗被遮挡 */
+.vxe-dynamics--modal > .vxe-modal--wrapper {
+  z-index: calc(var(--popup-z-index) + 1) !important;
 }

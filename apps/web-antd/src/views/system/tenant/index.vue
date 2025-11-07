@@ -15,6 +15,7 @@ import { Modal, Popconfirm, Space } from 'ant-design-vue';
 import { useVbenVxeGrid, vxeCheckboxChecked } from '#/adapter/vxe-table';
 import {
   dictSyncTenant,
+  syncTenantConfig,
   tenantExport,
   tenantList,
   tenantRemove,
@@ -144,6 +145,18 @@ function handleSyncTenantDict() {
     },
   });
 }
+
+function handleSyncTenantConfig() {
+  Modal.confirm({
+    title: '提示',
+    iconType: 'warning',
+    content: '确认同步租户参数配置？',
+    onOk: async () => {
+      await syncTenantConfig();
+      await tableApi.query();
+    },
+  });
+}
 </script>
 
 <template>
@@ -156,6 +169,12 @@ function handleSyncTenantDict() {
             @click="handleSyncTenantDict"
           >
             同步租户字典
+          </a-button>
+          <a-button
+            v-access:code="['system:tenant:edit']"
+            @click="handleSyncTenantConfig"
+          >
+            同步租户参数配置
           </a-button>
           <a-button
             v-access:code="['system:tenant:export']"

@@ -45,11 +45,8 @@ onMounted(async () => {
   }));
 });
 
-/**
- * 这里无法处理昵称中带,的情况
- */
 const isMultiplePerson = computed(
-  () => props.item.approveName?.split(',').length > 1,
+  () => props.item.approver?.split(',').length > 1,
 );
 </script>
 
@@ -87,6 +84,7 @@ const isMultiplePerson = computed(
       </div>
 
       <div :class="cn('mt-2 flex flex-wrap gap-2')" v-if="isMultiplePerson">
+        <!-- 如果昵称中带, 这里的处理是不准确的 -->
         <div
           :class="cn('bg-foreground/5 flex items-center rounded-full', 'p-1')"
           v-for="(name, index) in item.approveName.split(',')"
