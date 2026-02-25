@@ -63,6 +63,7 @@ function defineApplicationConfig(userConfigPromise?: DefineApplicationOptions) {
             assetFileNames: '[ext]/[name]-[hash].[ext]',
             chunkFileNames: 'js/[name]-[hash].js',
             entryFileNames: 'jse/index-[name]-[hash].js',
+            experimentalMinChunkSize: 20 * 1024,
           },
         },
         target: 'es2015',
@@ -114,7 +115,7 @@ function createCssOptions(injectGlobalScss = true): CSSOptions {
               }
               return content;
             },
-            api: 'modern',
+            // api: 'modern',
             importers: [new NodePackageImporter()],
           },
         }

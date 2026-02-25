@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import type { ContextMenuSeparatorProps } from 'radix-vue';
+import type { ContextMenuSeparatorProps } from 'reka-ui';
 
-import { cn } from '@vben-core/shared/utils';
-import { ContextMenuSeparator } from 'radix-vue';
 import { computed } from 'vue';
 
-const props = defineProps<{ class?: any } & ContextMenuSeparatorProps>();
+import { cn } from '@vben-core/shared/utils';
+
+import { ContextMenuSeparator } from 'reka-ui';
+
+const props = defineProps<ContextMenuSeparatorProps & { class?: any }>();
 
 const delegatedProps = computed(() => {
   const { class: _, ...delegated } = props;
@@ -17,6 +19,6 @@ const delegatedProps = computed(() => {
 <template>
   <ContextMenuSeparator
     v-bind="delegatedProps"
-    :class="cn('bg-border -mx-1 my-1 h-px', props.class)"
+    :class="cn('-mx-1 my-1 h-px bg-border', props.class)"
   />
 </template>

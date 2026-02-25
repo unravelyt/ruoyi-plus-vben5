@@ -5,6 +5,7 @@ import { onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 import { DEFAULT_TENANT_ID, LOGIN_PATH } from '@vben/constants';
+import { preferences } from '@vben/preferences';
 import { useAccessStore } from '@vben/stores';
 import { cn } from '@vben/utils';
 
@@ -62,6 +63,9 @@ onMounted(async () => {
     if (accessStore.accessToken) {
       await authCallback(data);
       message.success(`${source}授权成功`);
+      setTimeout(() => {
+        router.push(preferences.app.defaultHomePath);
+      }, 1500);
     } else {
       // 这里内部已经做了跳转到首页的操作
       await authStore.authLogin(data as any);

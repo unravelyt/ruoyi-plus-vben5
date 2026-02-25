@@ -10,8 +10,7 @@ import { getVxePopupContainer } from '@vben/utils';
 import { Modal, Popconfirm, Space } from 'ant-design-vue';
 
 import { useVbenVxeGrid, vxeCheckboxChecked } from '#/adapter/vxe-table';
-import { configRemove } from '#/api/system/config';
-import { spelList } from '#/api/workflow/spel';
+import { spelList,spelDelete } from '#/api/workflow/spel';
 
 import { columns, querySchema } from './data';
 import spelDrawer from './spel-drawer.vue';
@@ -75,7 +74,7 @@ async function handleEdit(record: Spel) {
 }
 
 async function handleDelete(row: Spel) {
-  await configRemove([row.id]);
+  await spelDelete([row.id]);
   await tableApi.query();
 }
 
@@ -87,7 +86,7 @@ function handleMultiDelete() {
     okType: 'danger',
     content: `确认删除选中的${ids.length}条记录吗？`,
     onOk: async () => {
-      await configRemove(ids);
+      await spelDelete(ids);
       await tableApi.query();
     },
   });

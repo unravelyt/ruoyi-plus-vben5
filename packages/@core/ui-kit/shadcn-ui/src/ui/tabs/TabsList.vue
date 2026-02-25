@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import type { TabsListProps } from 'radix-vue';
+import type { TabsListProps } from 'reka-ui';
 
-import { cn } from '@vben-core/shared/utils';
-import { TabsList } from 'radix-vue';
 import { computed } from 'vue';
 
-const props = defineProps<{ class?: any } & TabsListProps>();
+import { cn } from '@vben-core/shared/utils';
+
+import { TabsList } from 'reka-ui';
+
+const props = defineProps<TabsListProps & { class?: any }>();
 
 const delegatedProps = computed(() => {
   const { class: _, ...delegated } = props;
@@ -19,7 +21,7 @@ const delegatedProps = computed(() => {
     v-bind="delegatedProps"
     :class="
       cn(
-        'bg-muted text-muted-foreground inline-flex h-9 items-center justify-center rounded-lg p-1',
+        'inline-flex h-9 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground',
         props.class,
       )
     "

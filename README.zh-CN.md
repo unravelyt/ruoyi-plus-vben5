@@ -32,11 +32,19 @@ V1.2.0版本对接warmflow工作流
 
 admin 账号: admin admin123
 
-[预览地址点这里](http://vben5.dapdap.top)
+[dev分支预览](http://vben5.dapdap.top)
 
-## WX Group
+[antdv-next分支预览](http://antdv-next.dapdap.top)
 
-演示站 - 微信群菜单
+## 分支说明
+
+- `main` 主分支 稳定分支(基于ant-design-vue)
+- `dev` 开发分支 包含前端/后端新功能 没问题后合并到`main`分支(基于ant-design-vue) [预览地址](http://vben5.dapdap.top)
+- `antdv-next`分支 使用`antdv-next`替换已经不维护的`ant-design-vue` 分支 且包含破坏性更新 (基于antv-next) [预览地址](http://antdv-next.dapdap.top)
+
+antdv-next开发完毕且测试正常后 会作为主分支更新(v2) 原先基于`ant-design-vue`的版本会作为归档(v1)
+
+antdv-next目前为阿尔法版本
 
 ## 文档
 
@@ -82,7 +90,7 @@ pnpm install
 
 - 关于代码生成
 
-V5版本代码生成模板为付费功能 [详见](https://dapdap.top/other/template.html)
+原先为付费功能 现由于某些原因不再放出 建议用AI照着抄 [详见](https://dapdap.top/other/template.html)
 
 - 关于一些监控的地址配置(微服务版本可以跳过这一小节)
 

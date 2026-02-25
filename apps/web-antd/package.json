@@ -1,6 +1,6 @@
 {
   "name": "@vben/web-antd",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "homepage": "https://vben.pro",
   "bugs": "https://github.com/vbenjs/vue-vben-admin/issues",
   "repository": {
@@ -27,8 +27,8 @@
     "#/*": "./src/*"
   },
   "dependencies": {
-    "@ant-design/icons-vue": "^7.0.1",
-    "@tinymce/tinymce-vue": "^6.0.1",
+    "@ant-design/icons-vue": "catalog:",
+    "@tinymce/tinymce-vue": "catalog:",
     "@vben/access": "workspace:*",
     "@vben/common-ui": "workspace:*",
     "@vben/constants": "workspace:*",
@@ -45,18 +45,18 @@
     "@vben/utils": "workspace:*",
     "@vueuse/core": "catalog:",
     "ant-design-vue": "catalog:",
-    "cropperjs": "^1.6.2",
+    "cropperjs": "catalog:",
     "dayjs": "catalog:",
-    "echarts": "^5.5.1",
-    "lodash-es": "^4.17.21",
+    "echarts": "catalog:conflicts_echarts_h5_5_1",
+    "lodash-es": "catalog:",
     "pinia": "catalog:",
-    "tinymce": "7.9.1",
-    "unplugin-vue-components": "^0.27.3",
+    "tinymce": "catalog:",
+    "unplugin-vue-components": "catalog:",
     "vue": "catalog:",
     "vue-router": "catalog:",
-    "vue3-colorpicker": "^2.3.0"
+    "vue3-colorpicker": "catalog:"
   },
   "devDependencies": {
-    "@types/lodash-es": "^4.17.12"
+    "@types/lodash-es": "catalog:"
   }
 }

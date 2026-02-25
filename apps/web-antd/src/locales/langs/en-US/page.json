@@ -5,7 +5,8 @@
     "codeLogin": "Code Login",
     "qrcodeLogin": "Qr Code Login",
     "forgetPassword": "Forget Password",
-    "oauthLogin": "Oauth Login"
+    "oauthLogin": "Oauth Login",
+    "profile": "Profile"
   },
   "dashboard": {
     "title": "Dashboard",

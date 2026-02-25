@@ -3,6 +3,7 @@ export * from './captcha';
 export * from './code-mirror';
 export * from './col-page';
 export * from './count-to';
+export * from './cropper';
 export * from './ellipsis-text';
 export * from './icon-picker';
 export * from './json-preview';
@@ -23,6 +24,7 @@ export {
   VbenButtonGroup,
   VbenCheckbox,
   VbenCheckButtonGroup,
+  VbenContextMenu,
   VbenCountToAnimator,
   VbenFullScreen,
   VbenInputPassword,
