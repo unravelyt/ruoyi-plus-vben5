@@ -60,3 +60,7 @@ apps/web-antd/types/components.d.ts
 .claude
 .codex
 skills-lock.json
+
+*dist.zip
+*dist.tar
+*dist.war

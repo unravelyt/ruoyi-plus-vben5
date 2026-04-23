@@ -27,6 +27,7 @@ export default defineConfig(async () => {
             rewrite: (path) => path.replace(/^\/api/, ''),
             // mock代理目标地址
             target: 'http://localhost:8080',
+            // target: 'http://192.168.0.214:8080',
             ws: true,
           },
         },
