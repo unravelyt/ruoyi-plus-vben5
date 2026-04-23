@@ -5,7 +5,7 @@ import type { SocialInfo } from '#/api/system/social/model';
 
 import { onMounted, ref } from 'vue';
 
-import { Alert, Avatar, Card, Empty, Modal, Tooltip } from 'ant-design-vue';
+import { Alert, Avatar, Card, Empty, Tooltip } from 'antdv-next';
 
 import { authUnbinding } from '#/api';
 import { socialList } from '#/api/system/social';
@@ -50,7 +50,7 @@ function handleUnbind(record: BindItemWithInfo) {
   if (!record.info) {
     return;
   }
-  Modal.confirm({
+  window.modal.confirm({
     content: `确定解绑[${record.source}]平台的[${record.info.userName}]账号吗？`,
     async onOk() {
       await authUnbinding(record.info!.id);
@@ -68,7 +68,7 @@ const simpleImage = Empty.PRESENTED_IMAGE_SIMPLE;
   <div class="flex flex-col gap-4 pb-4">
     <div
       v-if="bindList.length > 0"
-      class="grid grid-cols-1 gap-4 lg:grid-cols-2 2xl:grid-cols-3"
+      class="grid grid-cols-1 gap-4 lg:grid-cols-2 2xl:grid-cols-3 p-4"
     >
       <Card
         class="transition-shadow duration-300 hover:shadow-md"
@@ -126,17 +126,19 @@ const simpleImage = Empty.PRESENTED_IMAGE_SIMPLE;
     >
       <Empty :image="simpleImage" description="暂无可绑定的第三方账户" />
     </div>
-    <Alert message="说明" type="info">
-      <template #description>
-        <p>
-          需要添加第三方账号在
-          <span class="font-bold">
-            apps\web-antd\src\views\_core\oauth-common.ts
-          </span>
-          中accountBindList按模板添加
-        </p>
-      </template>
-    </Alert>
+    <div class="p-4 pt-0">
+      <Alert message="说明" type="info">
+        <template #description>
+          <p>
+            需要添加第三方账号在
+            <span class="font-bold">
+              apps\web-antd\src\views\_core\oauth-common.ts
+            </span>
+            中accountBindList按模板添加
+          </p>
+        </template>
+      </Alert>
+    </div>
   </div>
 </template>
 

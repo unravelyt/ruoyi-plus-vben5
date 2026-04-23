@@ -1,157 +1,187 @@
-<div align="center">
-  <a href="https://github.com/anncwb/vue-vben-admin">
-    <img alt="VbenAdmin Logo" width="215" src="https://unpkg.com/@vbenjs/static-source@0.1.7/source/logo-v1.webp">
-  </a>
-  <br>
-  <br>
-
 [![license](https://img.shields.io/github/license/anncwb/vue-vben-admin.svg)](LICENSE)
 
-  <h1>Vue Vben Admin</h1>
-</div>
+## 置顶说明
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=vbenjs_vue-vben-admin&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=vbenjs_vue-vben-admin) [![codeql](https://github.com/vbenjs/vue-vben-admin/actions/workflows/codeql.yml/badge.svg)](https://github.com/vbenjs/vue-vben-admin/actions/workflows/codeql.yml) [![build](https://github.com/vbenjs/vue-vben-admin/actions/workflows/build.yml/badge.svg)](https://github.com/vbenjs/vue-vben-admin/actions/workflows/build.yml) [![ci](https://github.com/vbenjs/vue-vben-admin/actions/workflows/ci.yml/badge.svg)](https://github.com/vbenjs/vue-vben-admin/actions/workflows/ci.yml) [![deploy](https://github.com/vbenjs/vue-vben-admin/actions/workflows/deploy.yml/badge.svg)](https://github.com/vbenjs/vue-vben-admin/actions/workflows/deploy.yml)
+使用`antdv-next`已经作为主分支进行更新
 
-**English** | [中文](./README.zh-CN.md) | [日本語](./README.ja-JP.md)
+原`ant-design-vue`已经归档到`v1/ant-design-vue`分支 不再进行更新(当然你可以手动合并官方的更新)
 
-## Introduction
+## 提示
 
-Vue Vben Admin is a free and open source middle and back-end template. Using the latest `vue3`, `vite`, `TypeScript` and other mainstream technology development, the out-of-the-box middle and back-end front-end solutions can also be used for learning reference.
+最低需要使用`node版本>22.16.0` 否则会影响编辑器的格式化(需要安装oxc插件)
 
-## Upgrade Notice
+该分支使用[antdv-next](https://github.com/antdv-next/antdv-next)替代已经不维护的antd-design-vue
 
-This is the latest version, 5.0, and it is not compatible with previous versions. If you are starting a new project, it is recommended to use the latest version. If you wish to view the old version, please use the [v2 branch](https://github.com/vbenjs/vue-vben-admin/tree/v2).
+该仓库使用vben最新版本v5开发
 
-## Features
+v5版本采用分仓(包)目录结构, 具体开发路径为: `根目录/apps/web-antd`
 
-- **Latest Technology Stack**: Developed with cutting-edge front-end technologies like Vue 3 and Vite
-- **TypeScript**: A language for application-scale JavaScript
-- **Themes**: Multiple theme colors available with customizable options
-- **Internationalization**: Comprehensive built-in internationalization support
-- **Permissions**: Built-in solution for dynamic route-based permission generation
+目前对应后端版本: **分布式5.6.0/微服务2.6.0**
 
-## Preview
+## 简介
 
-- [Vben Admin](https://vben.pro/) - Full version Chinese site
+基于 [vben5 & antdv-next](https://github.com/vbenjs/vue-vben-admin) 的 RuoYi-Vue-Plus 前端项目
 
-Test Account: vben/123456
+| 组件/框架  | 版本   |
+| :--------- | :----- |
+| vben       | 5.5.9  |
+| antdv-next | 4.2.6  |
+| vue        | 3.5.13 |
 
-<div align="center">
-  <img alt="VbenAdmin Logo" width="100%" src="https://anncwb.github.io/anncwb/images/preview1.png">
-  <img alt="VbenAdmin Logo" width="100%" src="https://anncwb.github.io/anncwb/images/preview2.png">
-  <img alt="VbenAdmin Logo" width="100%" src="https://anncwb.github.io/anncwb/images/preview3.png">
-</div>
+对应后端项目: **(分布式 5.X 分支 微服务 2.分支)**
 
-### Use Gitpod
+分布式 [RuoYi-Vue-Plus](https://gitee.com/dromara/RuoYi-Vue-Plus/tree/5.X/)
 
-Open the project in Gitpod (free online dev environment for GitHub) and start coding immediately.
+微服务 [RuoYi-Cloud-Plus](https://gitee.com/dromara/RuoYi-Cloud-Plus/tree/2.X/)
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/vbenjs/vue-vben-admin)
+## 预览
 
-## Documentation
+admin 账号: admin admin123
 
-[Document](https://doc.vben.pro/)
+[预览地址点这里](http://vben5.dapdap.top)
 
-## Install and Use
+## WX Group
 
-1. Get the project code
+演示站 - 微信群菜单
 
-```bash
-git clone https://github.com/vbenjs/vue-vben-admin.git
+## 文档
+
+[本框架文档 强烈建议阅读](https://dapdap.top/)
+
+[Vben V5 文档地址](https://doc.vben.pro/)
+
+[RuoYi-Plus 文档地址](https://plus-doc.dromara.org/#/)
+
+## 预览图
+
+![图片](https://github.com/imdap/ruoyi-plus-vben5/raw/main/scripts/preview/1.png) ![图片](https://github.com/imdap/ruoyi-plus-vben5/raw/main/scripts/preview/2.png) ![图片](https://github.com/imdap/ruoyi-plus-vben5/raw/main/scripts/preview/3.png) ![图片](https://github.com/imdap/ruoyi-plus-vben5/raw/main/scripts/preview/4.png) ![图片](https://github.com/imdap/ruoyi-plus-vben5/raw/main/scripts/preview/5.png) ![图片](https://github.com/imdap/ruoyi-plus-vben5/raw/main/scripts/preview/6.png) ![图片](https://github.com/imdap/ruoyi-plus-vben5/raw/main/scripts/preview/7.png) ![图片](https://github.com/imdap/ruoyi-plus-vben5/raw/main/scripts/preview/8.png) ![图片](https://github.com/imdap/ruoyi-plus-vben5/raw/main/scripts/preview/9.png)
+
+## 安装使用
+
+前置准备环境(只能用pnpm)
+
+```json
+"packageManager": "pnpm",
+"engines": {
+  "node": ">=22.16.0",
+  "pnpm": "latest"
+},
 ```
 
-2. Install dependencies
+- 获取项目代码
 
 ```bash
-cd vue-vben-admin
-npm i -g corepack
+git clone https://github.com/imdap/ruoyi-plus-vben5.git
+```
+
+2. 安装依赖
+
+```bash
+cd ruoyi-plus-vben5
+
 pnpm install
 ```
 
-3. Run
+- 菜单图标替换
 
-```bash
-pnpm dev
+参考 [菜单图标替换](https://dapdap.top/guide/quick-start.html#%E8%8F%9C%E5%8D%95%E5%9B%BE%E6%A0%87%E5%AF%BC%E5%85%A5)
+
+- 关于一些监控的地址配置(微服务版本可以跳过这一小节)
+
+使用[RuoYi-Vue-Plus](https://gitee.com/dromara/RuoYi-Vue-Plus/tree/5.X/)注意 `已经去除 admin/snailjob 的.env 配置` 可自行修改 有两种方式
+
+1. 修改源码`/views/monitor/admin` `views/monitor/snailjob`
+
+```html
+<!-- 修改地址 -->
+<template>
+  <iframe
+    class="size-full"
+    src="http://localhost:9090/admin/applications"
+  ></iframe>
+</template>
 ```
 
-4. Build
+2. **推荐** 使用菜单自行配置 (跟 cloud 版本打开方式一致)
 
-```bash
-pnpm build
+![图片](https://github.com/imdap/ruoyi-plus-vben/raw/main/preview/菜单修改.png)
+
+使用内嵌 iframe 方式需要解决跨域问题 可参考[nginx.conf](https://gitee.com/dromara/RuoYi-Vue-Plus/blob/5.X/script/docker/nginx/conf/nginx.conf#LC87)配置
+
+- 修改.env.development 配置文件
+- **注意 RSA 公私钥一定要修改和后端匹配**
+- RSA 公私钥为两对 `前端请求加密-后端解密是一对` `后端响应加密 前端解密是一对`
+
+```properties
+# 端口号
+VITE_PORT=5666
+# 打包路径
+VITE_BASE=/
+# 是否开启 Nitro Mock服务，true 为开启，false 为关闭
+VITE_NITRO_MOCK=false
+# 是否打开 devtools，true 为打开，false 为关闭
+VITE_DEVTOOLS=false
+# 是否注入全局loading
+VITE_INJECT_APP_LOADING=true
+
+# 后台请求路径 具体在vite.config.mts配置代理
+VITE_GLOB_API_URL=/api
+# 全局加密开关(即开启了加解密功能才会生效 不是全部接口加密 需要和后端对应)
+VITE_GLOB_ENABLE_ENCRYPT=true
+# RSA公钥 请求加密使用 注意这两个是两对RSA公私钥 请求加密-后端解密是一对 响应解密-后端加密是一对
+VITE_GLOB_RSA_PUBLIC_KEY=
+# RSA私钥 响应解密使用 注意这两个是两对RSA公私钥 请求加密-后端解密是一对 响应解密-后端加密是一对
+VITE_GLOB_RSA_PRIVATE_KEY=
+# 客户端id
+VITE_GLOB_APP_CLIENT_ID=e5cd7e4891bf95d1d19206ce24a7b32e
+# 开启WEBSOCKET
+VITE_GLOB_WEBSOCKET_ENABLE=false
 ```
 
-## Change Log
+- 运行
 
-[CHANGELOG](https://github.com/vbenjs/vue-vben-admin/releases)
+```bash
+pnpm dev:antd
+```
 
-## How to Contribute
+4. 打包
 
-You are very welcome to join! [Raise an issue](https://github.com/anncwb/vue-vben-admin/issues/new/choose) or submit a Pull Request.
+```bash
+pnpm build:antd
+```
 
-**Pull Request Process:**
+## 这是一个特性 而不是一个bug!
 
-1. Fork the code
-2. Create your branch: `git checkout -b feat/xxxx`
-3. Submit your changes: `git commit -am 'feat(function): add xxxxx'`
-4. Push your branch: `git push origin feat/xxxx`
-5. Submit `pull request`
+1. 菜单管理可分配 但只有`admin`/`superadmin`角色能访问 其他角色访问会到403页面
+2. 租户相关菜单可分配 但只有`superadmin`角色能访问 其他角色访问会到403页面
+3. 分配的租户管理员无法修改自己的角色的菜单(即管理员角色的菜单) 防止自己把自己权限弄没了
 
-## Git Contribution Submission Specification
+## Git 贡献提交规范
 
-Reference [vue](https://github.com/vuejs/vue/blob/dev/.github/COMMIT_CONVENTION.md) specification ([Angular](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular))
+参考 [vue](https://github.com/vuejs/vue/blob/dev/.github/COMMIT_CONVENTION.md) 规范 ([Angular](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular))
 
-- `feat` Add new features
-- `fix` Fix the problem/BUG
-- `style` The code style is related and does not affect the running result
-- `perf` Optimization/performance improvement
-- `refactor` Refactor
-- `revert` Undo edit
-- `test` Test related
-- `docs` Documentation/notes
-- `chore` Dependency update/scaffolding configuration modification etc.
-- `ci` Continuous integration
-- `types` Type definition file changes
+- `feat` 增加新功能
+- `fix` 修复问题/BUG
+- `style` 代码风格相关无影响运行结果的
+- `perf` 优化/性能提升
+- `refactor` 重构
+- `revert` 撤销修改
+- `test` 测试相关
+- `docs` 文档/注释
+- `chore` 依赖更新/脚手架配置修改等
+- `workflow` 工作流改进
+- `ci` 持续集成
+- `types` 类型定义文件更改
+- `wip` 开发中
 
-## Browser Support
+## 浏览器支持
 
-The `Chrome 80+` browser is recommended for local development
+最低适配应该为`Chrome 88+`以上浏览器 详见 [css - where](https://developer.mozilla.org/en-US/docs/Web/CSS/:where#browser_compatibility)
 
-Support modern browsers, not IE
+本地开发推荐使用`Chrome` 最新版本浏览器
 
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
-| :-: | :-: | :-: | :-: |
-| last 2 versions | last 2 versions | last 2 versions | last 2 versions |
+支持现代浏览器，不支持 IE
 
-## Maintainer
-
-[@Vben](https://github.com/anncwb)
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=vbenjs/vue-vben-admin&type=Date)](https://star-history.com/#vbenjs/vue-vben-admin&Date)
-
-## Donate
-
-If you think this project is helpful to you, you can help the author buy a cup of coffee to show your support!
-
-![donate](https://unpkg.com/@vbenjs/static-source@0.1.7/source/sponsor.png)
-
-<a style="display: block;width: 100px;height: 50px;line-height: 50px; color: #fff;text-align: center; background: #408aee;border-radius: 4px;" href="https://www.paypal.com/paypalme/cvvben">Paypal Me</a>
-
-## Contributors
-
-<a href="https://openomy.app/github/vbenjs/vue-vben-admin" target="_blank" style="display: block; width: 100%;" align="center">
-  <img src="https://openomy.app/svg?repo=vbenjs/vue-vben-admin&chart=bubble&latestMonth=3" target="_blank" alt="Contribution Leaderboard" style="display: block; width: 100%;" />
- </a>
-
-<a href="https://github.com/vbenjs/vue-vben-admin/graphs/contributors">
-  <img alt="Contributors" src="https://contrib.rocks/image?repo=vbenjs/vue-vben-admin" />
-</a>
-
-## Discord
-
-- [Github Discussions](https://github.com/anncwb/vue-vben-admin/discussions)
-
-## License
-
-[MIT © Vben-2020](./LICENSE)
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
+| :-: | :-: | :-: | :-: | :-: |
+| not support | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
