@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import type { IPropTypes } from '@tinymce/tinymce-vue/lib/cjs/main/ts/components/EditorPropTypes';
+import type { ProgressHandler } from 'alova';
 import type { Editor as EditorType } from 'tinymce/tinymce';
 
-import type { AxiosProgressEvent, UploadResult } from '#/api';
+import type { TinymceProps } from './type';
+
+import type { UploadResult } from '#/api';
 
 import { computed, nextTick, ref, shallowRef, useAttrs, watch } from 'vue';
 
@@ -20,20 +23,12 @@ import {
 
 type InitOptions = IPropTypes['init'];
 
-interface Props {
-  height?: number | string;
-  options?: Partial<InitOptions>;
-  plugins?: string;
-  toolbar?: string;
-  disabled?: boolean;
-}
-
 defineOptions({
   name: 'Tinymce',
   inheritAttrs: false,
 });
 
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<TinymceProps>(), {
   height: 400,
   options: () => ({}),
   plugins: defaultPlugins,
@@ -151,11 +146,14 @@ const initOptions = computed((): InitOptions => {
         const file = blobInfo.blob();
         // const filename = blobInfo.filename();
         // 进度条事件
-        const progressEvent: AxiosProgressEvent = (e) => {
+        const progressEvent: ProgressHandler = (e) => {
           const percent = Math.trunc((e.loaded / e.total!) * 100);
           progress(percent);
         };
-        uploadApi(file, { onUploadProgress: progressEvent })
+        const alovaUploadApi = uploadApi(file);
+        // 监听上传进度
+        alovaUploadApi.onUpload(progressEvent);
+        alovaUploadApi
           .then((response) => {
             const { url, ossId } = response as unknown as UploadResult;
             console.log('tinymce上传图片:', url);
@@ -165,7 +163,7 @@ const initOptions = computed((): InitOptions => {
           })
           .catch((error) => {
             console.error('tinymce上传图片失败:', error);
-            // eslint-disable-next-line prefer-promise-reject-errors
+
             reject({ message: error.message, remove: true });
           });
       });

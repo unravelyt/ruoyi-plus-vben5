@@ -1,67 +1,70 @@
 <script lang="ts" setup>
 import type { NotificationItem } from './types';
 
-import { Bell, MailCheck } from '@vben/icons';
+import { Bell, CircleCheckBig, CircleX, MailCheck } from '@vben/icons';
 import { $t } from '@vben/locales';
 
-import { VbenButton, VbenIconButton, VbenPopover, VbenScrollbar } from '@vben-core/shadcn-ui';
+import {
+  VbenButton,
+  VbenIconButton,
+  VbenPopover,
+  VbenScrollbar,
+} from '@vben-core/shadcn-ui';
 
 import { useToggle } from '@vueuse/core';
 
-interface Props {
-  /**
-   * 显示圆点
-   */
-  dot?: boolean;
-  /**
-   * 消息列表
-   */
-  notifications?: NotificationItem[];
-}
-
 defineOptions({ name: 'NotificationPopup' });
 
-withDefaults(defineProps<Props>(), {
-  dot: false,
-  notifications: () => [],
-});
+withDefaults(
+  defineProps<{
+    /** 显示圆点 */
+    dot?: boolean;
+    /** 消息列表 */
+    notifications?: NotificationItem[];
+  }>(),
+  {
+    dot: false,
+    notifications: () => [],
+  },
+);
 
 const emit = defineEmits<{
   clear: [];
   makeAll: [];
+  onClick: [NotificationItem];
   read: [NotificationItem];
+  remove: [NotificationItem];
   viewAll: [];
 }>();
 
 const [open, toggle] = useToggle();
 
-function close() {
+const close = () => {
   open.value = false;
-}
+};
 
-function handleViewAll() {
+const handleViewAll = () => {
   emit('viewAll');
   close();
-}
+};
 
-function handleMakeAll() {
+const handleMakeAll = () => {
   emit('makeAll');
-}
+};
 
-function handleClear() {
+const handleClear = () => {
   emit('clear');
-}
-
-function handleClick(item: NotificationItem) {
-  emit('read', item);
-}
+};
 </script>
 <template>
   <VbenPopover v-model:open="open" content-class="relative right-2 w-90 p-0">
     <template #trigger>
       <div class="mr-2 flex-center h-full" @click.stop="toggle()">
         <VbenIconButton class="bell-button relative text-foreground">
-          <span v-if="dot" class="absolute top-0.5 right-0.5 size-2 rounded-sm bg-primary"></span>
+          <span
+            v-if="dot"
+            class="absolute top-0.5 right-0.5 size-2 rounded-sm bg-primary"
+          ></span>
           <Bell class="size-4" />
         </VbenIconButton>
       </div>
@@ -83,29 +86,60 @@ function handleClick(item: NotificationItem) {
           <template v-for="item in notifications" :key="item.title">
             <li
               class="relative flex w-full cursor-pointer items-start gap-5 border-t border-border p-3 hover:bg-accent"
-              @click="handleClick(item)"
+              @click="emit('onClick', item)"
             >
-              <span
-                v-if="!item.isRead"
-                class="absolute top-2 right-2 size-2 rounded-sm bg-primary"
-              ></span>
+              <slot name="content" :item="item">
+                <span
+                  v-if="!item.isRead"
+                  class="absolute top-2 right-2 size-2 rounded-sm bg-primary"
+                ></span>
 
-              <span class="relative flex size-10 shrink-0 overflow-hidden rounded-full">
-                <img
-                  :src="item.avatar"
-                  class="aspect-square h-full w-full object-cover"
-                  role="img"
-                />
-              </span>
-              <div class="flex flex-col gap-1 leading-none">
-                <p class="font-semibold">{{ item.title }}</p>
-                <p class="my-1 line-clamp-2 text-xs text-muted-foreground">
-                  {{ item.message }}
-                </p>
-                <p class="line-clamp-2 text-xs text-muted-foreground">
-                  {{ item.date }}
-                </p>
-              </div>
+                <span
+                  class="relative flex size-10 shrink-0 overflow-hidden rounded-full"
+                >
+                  <img
+                    :src="item.avatar"
+                    class="aspect-square size-full object-cover"
+                  />
+                </span>
+                <div class="flex flex-col gap-1 leading-none">
+                  <p class="font-semibold">{{ item.title }}</p>
+                  <p class="my-1 line-clamp-2 text-xs text-muted-foreground">
+                    {{ item.message }}
+                  </p>
+                  <p class="line-clamp-2 text-xs text-muted-foreground">
+                    {{ item.date }}
+                  </p>
+                </div>
+                <div
+                  class="absolute top-1/2 right-3 flex -translate-y-1/2 flex-row gap-1"
+                >
+                  <slot name="action" :item="item">
+                    <slot name="action-prepend" :item="item"></slot>
+                    <VbenIconButton
+                      v-if="!item.isRead"
+                      size="xs"
+                      variant="ghost"
+                      class="h-6 px-2"
+                      :tooltip="$t('common.confirm')"
+                      @click.stop="emit('read', item)"
+                    >
+                      <CircleCheckBig class="size-4" />
+                    </VbenIconButton>
+                    <VbenIconButton
+                      v-if="item.isRead"
+                      size="xs"
+                      variant="ghost"
+                      class="h-6 px-2 text-destructive"
+                      :tooltip="$t('common.delete')"
+                      @click.stop="emit('remove', item)"
+                    >
+                      <CircleX class="size-4" />
+                    </VbenIconButton>
+                    <slot name="action-append" :item="item"></slot>
+                  </slot>
+                </div>
+              </slot>
             </li>
           </template>
         </ul>
@@ -117,7 +151,9 @@ function handleClick(item: NotificationItem) {
         </div>
       </template>
 
-      <div class="flex items-center justify-between border-t border-border px-4 py-3">
+      <div
+        class="flex items-center justify-between border-t border-border px-4 py-3"
+      >
         <VbenButton
           :disabled="notifications.length <= 0"
           size="sm"

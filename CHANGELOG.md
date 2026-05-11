@@ -1,3 +1,14 @@
+## 2.0.1
+
+**FEATURE**:
+
+- useVbenForm支持compoennt类型推断 (官方更新)
+
+**FIX**:
+
+- Tinymce的上传进度兼容alova
+- UseForm的help不能正常显示tooltip
+
 ## 2.0.0
 
 ## 环境

@@ -181,6 +181,7 @@
   "stylelint.customSyntax": "postcss-html",
   "stylelint.snippet": ["css", "less", "postcss", "scss", "vue"],
 
+  "js/ts.tsdk.path": "node_modules/typescript/lib",
   "js/ts.inlayHints.enumMemberValues.enabled": true,
   "js/ts.preferences.preferTypeOnlyAutoImports": true,
   "js/ts.preferences.includePackageJsonAutoImports": "on",
@@ -204,9 +205,10 @@
   ],
 
   "github.copilot.enable": {
-    "*": true,
-    "markdown": true,
+    "*": false,
     "plaintext": false,
+    "markdown": true,
+    "scminput": false,
     "yaml": false
   },
 
@@ -240,7 +242,6 @@
   "commentTranslate.multiLineMerge": true,
   "vue.server.hybridMode": true,
   "vitest.disableWorkspaceWarning": true,
-  "js/ts.tsdk.path": "node_modules/typescript/lib",
   "editor.linkedEditing": true, // 自动同步更改html标签,
   "vscodeCustomCodeColor.highlightValue": "v-access", // v-access显示的颜色
   "vscodeCustomCodeColor.highlightValueColor": "#CCFFFF",

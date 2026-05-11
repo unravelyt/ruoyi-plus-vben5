@@ -58,7 +58,6 @@
   "devDependencies": {
     "@changesets/changelog-github": "catalog:",
     "@changesets/cli": "catalog:",
-    "@playwright/test": "catalog:",
     "@tsdown/css": "catalog:",
     "@types/node": "catalog:",
     "@vben/commitlint-config": "workspace:*",
@@ -73,7 +72,6 @@
     "@vben/vsh": "workspace:*",
     "@vitejs/plugin-vue": "catalog:",
     "@vitejs/plugin-vue-jsx": "catalog:",
-    "@vue/test-utils": "catalog:",
     "cross-env": "catalog:",
     "cspell": "catalog:",
     "happy-dom": "catalog:",
@@ -88,7 +86,6 @@
     "tsdown": "catalog:",
     "turbo": "catalog:",
     "typescript": "catalog:",
-    "unplugin-vue": "catalog:",
     "vite": "catalog:",
     "vitest": "catalog:",
     "vue": "catalog:",
@@ -98,5 +95,5 @@
     "node": "^20.19.0 || ^22.18.0 || ^24.0.0",
     "pnpm": ">=10.0.0"
   },
-  "packageManager": "pnpm@10.32.1"
+  "packageManager": "pnpm@10.33.0"
 }

@@ -107,6 +107,12 @@ export const useNotifyStore = defineStore(
       );
     }
 
+    function removeMessage(item: NotificationItem) {
+      notificationList.value = notificationList.value.filter(
+        (i) => i.id !== item.id,
+      );
+    }
+
     /**
      * 只需要空实现即可
      * 否则会在退出登录清空所有
@@ -132,6 +138,7 @@ export const useNotifyStore = defineStore(
       setRead,
       showDot,
       startListeningMessage,
+      removeMessage,
     };
   },
   {

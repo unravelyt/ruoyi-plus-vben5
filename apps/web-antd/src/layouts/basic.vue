@@ -12,7 +12,7 @@ import {
   Notification,
   UserDropdown,
 } from '@vben/layouts';
-import { preferences } from '@vben/preferences';
+import { preferences, usePreferences } from '@vben/preferences';
 import { useAccessStore, useUserStore } from '@vben/stores';
 import { openWindow } from '@vben/utils';
 
@@ -31,6 +31,7 @@ const authStore = useAuthStore();
 const accessStore = useAccessStore();
 const router = useRouter();
 const { destroyWatermark, updateWatermark } = useWatermark();
+const { isDark } = usePreferences();
 
 const tenantStore = useTenantStore();
 const menus = computed(() => {
@@ -106,14 +107,33 @@ onMounted(() => notifyStore.startListeningMessage());
 function handleViewAll() {
   window.message.warning('暂未开放');
 }
+
 watch(
   () => ({
     enable: preferences.app.watermark,
     content: preferences.app.watermarkContent,
+    isDark: isDark.value,
   }),
-  async ({ enable, content }) => {
+  async ({ enable, content, isDark: isDarkValue }) => {
     if (enable) {
+      const watermarkColor = isDarkValue
+        ? 'rgba(255, 255, 255, 0.12)'
+        : 'rgba(0, 0, 0, 0.12)';
+
       await updateWatermark({
+        advancedStyle: {
+          colorStops: [
+            {
+              color: watermarkColor,
+              offset: 0,
+            },
+            {
+              color: watermarkColor,
+              offset: 1,
+            },
+          ],
+          type: 'linear',
+        },
         content:
           content ||
           `${userStore.userInfo?.username} - ${userStore.userInfo?.realName}`,
@@ -153,6 +173,7 @@ useVersionUpdate();
         @make-all="notifyStore.setAllRead"
         @read="notifyStore.setRead"
         @view-all="handleViewAll"
+        @remove="notifyStore.removeMessage"
       />
     </template>
     <template #extra>

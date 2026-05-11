@@ -3,10 +3,42 @@
  * 可用于 vben-form、vben-modal、vben-drawer 等组件使用,
  */
 
+import type {
+  AutoCompleteProps,
+  ButtonProps,
+  CascaderProps,
+  CheckboxGroupProps,
+  CheckboxProps,
+  DatePickerProps,
+  DividerProps,
+  InputNumberProps,
+  InputProps,
+  MentionsProps,
+  RadioGroupProps,
+  RadioProps,
+  RangePickerProps,
+  RateProps,
+  SelectProps,
+  SpaceProps,
+  SwitchProps,
+  TextAreaProps,
+  TimePickerProps,
+  TimeRangePickerProps,
+  TreeSelectProps,
+  UploadProps,
+} from 'antdv-next';
+
 import type { Component } from 'vue';
 
-import type { BaseFormComponentType } from '@vben/common-ui';
+import type {
+  ApiComponentSharedProps,
+  BaseFormComponentType,
+  IconPickerProps,
+} from '@vben/common-ui';
 import type { Recordable } from '@vben/types';
+
+import type { TinymceProps } from '#/components/tinymce/src/type';
+import type { BaseUploadProps } from '#/components/upload/src/props';
 
 import { computed, defineAsyncComponent, defineComponent, h, ref } from 'vue';
 
@@ -25,6 +57,9 @@ const ImageUpload = defineAsyncComponent(() =>
   import('#/components/upload').then((res) => res.ImageUpload),
 );
 
+const AutoComplete = defineAsyncComponent(
+  () => import('antdv-next/dist/auto-complete/index'),
+);
 const Button = defineAsyncComponent(
   () => import('antdv-next/dist/button/index'),
 );
@@ -132,8 +167,8 @@ const withDefaultPlaceholder = <T extends Component>(
   });
 };
 
-// 这里需要自行根据业务组件库进行适配，需要用到的组件都需要在这里类型说明
-export type ComponentType =
+// 严格组件类型（不含 BaseFormComponentType 的 string 扩展），用于 components 对象的类型检查
+type StrictComponentType =
   | 'ApiCascader'
   | 'ApiSelect'
   | 'ApiTreeSelect'
@@ -164,15 +199,62 @@ export type ComponentType =
   | 'TimePicker'
   | 'TimeRangePicker'
   | 'TreeSelect'
-  | 'Upload'
-  | BaseFormComponentType;
+  | 'Upload';
+
+// 这里需要自行根据业务组件库进行适配，需要用到的组件都需要在这里类型说明
+export type ComponentType = BaseFormComponentType | StrictComponentType;
+
+/**
+ * 组件 Props 定义
+ */
+interface ComponentPropsMapDef {
+  ApiCascader: ApiComponentSharedProps & CascaderProps;
+  ApiSelect: ApiComponentSharedProps & SelectProps;
+  ApiTreeSelect: ApiComponentSharedProps & TreeSelectProps;
+  AutoComplete: AutoCompleteProps;
+  Cascader: CascaderProps;
+  Checkbox: CheckboxProps;
+  CheckboxGroup: CheckboxGroupProps;
+  DatePicker: DatePickerProps;
+  DefaultButton: ButtonProps;
+  Divider: DividerProps;
+  FileUpload: BaseUploadProps;
+  IconPicker: IconPickerProps;
+  ImageUpload: BaseUploadProps;
+  Input: InputProps;
+  InputNumber: InputNumberProps;
+  InputPassword: InputProps;
+  Mentions: MentionsProps;
+  PrimaryButton: ButtonProps;
+  Radio: RadioProps;
+  RadioGroup: RadioGroupProps;
+  RangePicker: RangePickerProps;
+  Rate: RateProps;
+  RichTextarea: TinymceProps;
+  Select: SelectProps;
+  Space: SpaceProps;
+  Switch: SwitchProps;
+  Textarea: TextAreaProps;
+  TimePicker: TimePickerProps;
+  TimeRangePicker: TimeRangePickerProps;
+  TreeSelect: TreeSelectProps;
+  Upload: UploadProps;
+}
+
+/**
+ * 与 {@link StrictComponentType} 一一对应，便于 Schema 上 `component` + `componentProps` 联动提示
+ * 通过 mapped type 约束: StrictComponentType 新增成员但 ComponentPropsMapDef 未添加对应键时会编译报错
+ */
+export type ComponentPropsMap = {
+  [K in StrictComponentType]: ComponentPropsMapDef[K];
+};
 
 async function initComponentAdapter() {
-  const components: Partial<Record<ComponentType, Component>> = {
+  const components: Record<StrictComponentType, Component> = {
     // 如果你的组件体积比较大，可以使用异步加载
     // Button: () =>
     // import('xxx').then((res) => res.Button),
-
+    AutoComplete: withDefaultPlaceholder(AutoComplete, 'input'),
     ApiCascader: withDefaultPlaceholder(ApiComponent, 'select', {
       component: Cascader,
       fieldNames: { label: 'label', value: 'value', children: 'children' },

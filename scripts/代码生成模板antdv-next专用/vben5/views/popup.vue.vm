@@ -118,7 +118,7 @@ import {
   Input,
   RadioGroup,
   Select,
-  Textarea,
+  TextArea,
 } from 'antdv-next';
 import { ImageUpload, FileUpload } from '#/components/upload';
 import { Tinymce } from '#/components/tinymce';
@@ -361,7 +361,7 @@ async function handleClosed() {
       </FormItem>
 #elseif($column.htmlType == "textarea")
       <FormItem label="${comment}" name="${field}" :rules="formRules.${field}">
-        <Textarea
+        <TextArea
           v-model:value="formData.${field}"
           :placeholder="$t('ui.formRules.required')"
           :rows="4"

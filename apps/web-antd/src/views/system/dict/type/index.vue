@@ -32,6 +32,11 @@ const formOptions: VbenFormProps = {
   },
   schema: querySchema(),
   wrapperClass: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+  handleReset: () => {
+    tableApi.formApi.resetForm();
+    tableApi.reload();
+    emitter.emit('reset');
+  },
 };
 
 const gridOptions: VxeGridProps = {
