@@ -72,12 +72,14 @@ const alovaInstance = createAlova({
    * @default 10s
    */
   timeout: 10_000,
+  // 使用 Vue 的响应式系统
   statesHook: VueHook,
+  // 使用 Axios 作为底层发送适配器
   requestAdapter: axiosRequestAdapter(),
   // 响应缓存让你可以更好地多次利用服务端数据，而不需要每次请求时都发送请求获取数据。GET 请求将默认设置 5 分钟的内存缓存时间，如果你不需要可以通过以下方式关闭当前请求的缓存。
   // https://alova.js.org/zh-CN/tutorial/getting-started/basic/method#%E5%93%8D%E5%BA%94%E7%BC%93%E5%AD%98
-  cacheFor: null,
-  shareRequest: false,
+  cacheFor: null, // 关闭 GET 请求的默认缓存
+  shareRequest: false, // 关闭请求共享（防止重复请求合并）
   beforeRequest: (request) => {
     const { config } = request;
     /**
@@ -89,6 +91,7 @@ const alovaInstance = createAlova({
 
     // 全局开启token功能 && token存在
     const accessStore = useAccessStore();
+    // 从 Pinia/Vuex 获取 token，如果请求配置了 withToken: true，则自动添加到 Header
     const token = accessStore.accessToken;
     // 添加token
     if (config.withToken && token) {
